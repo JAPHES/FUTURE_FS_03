@@ -65,3 +65,30 @@ class CoreViewsTests(TestCase):
         response = stylist_list(request)
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Jane Doe")
+
+    def test_existing_stylist_can_update_profile(self):
+        self.client.force_login(self.customer)
+        StylistProfile.objects.create(
+            user=self.customer,
+            full_name="Old Name",
+            phone="0711111111",
+            location="Meru",
+            bio="Old bio",
+            is_available=True,
+        )
+
+        response = self.client.post(
+            reverse("stylist_register"),
+            {
+                "full_name": "Updated Name",
+                "phone": "0722222222",
+                "location": "Nairobi",
+                "bio": "Updated bio",
+                "is_available": "on",
+            },
+        )
+
+        self.assertEqual(response.status_code, 302)
+        profile = StylistProfile.objects.get(user=self.customer)
+        self.assertEqual(profile.full_name, "Updated Name")
+        self.assertEqual(profile.location, "Nairobi")

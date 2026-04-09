@@ -58,22 +58,29 @@ def register(request):
 @login_required
 def stylist_register(request):
     existing_profile = StylistProfile.objects.filter(user=request.user).first()
-    if existing_profile:
-        messages.info(request, "You already have a stylist profile.")
-        return redirect("stylists")
+    is_editing = existing_profile is not None
 
     if request.method == "POST":
-        form = StylistProfileForm(request.POST, request.FILES)
+        form = StylistProfileForm(
+            request.POST, request.FILES, instance=existing_profile
+        )
         if form.is_valid():
             stylist_profile = form.save(commit=False)
             stylist_profile.user = request.user
             stylist_profile.save()
-            messages.success(request, "Your stylist profile has been created.")
+            if is_editing:
+                messages.success(request, "Your stylist profile was updated successfully.")
+            else:
+                messages.success(request, "Your stylist profile has been created.")
             return redirect("stylists")
     else:
-        form = StylistProfileForm()
+        form = StylistProfileForm(instance=existing_profile)
 
-    return render(request, "core/stylist_register.html", {"form": form})
+    context = {
+        "form": form,
+        "is_editing": is_editing,
+    }
+    return render(request, "core/stylist_register.html", context)
 
 
 @login_required

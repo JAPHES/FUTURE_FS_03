@@ -2,8 +2,13 @@
 
 {% block content %}
 <section class="page-header mb-4">
-    <h1 class="display-6 fw-bold">Register as a Stylist</h1>
-    <p class="text-muted">Create your profile so customers can discover and book your services.</p>
+    {% if is_editing %}
+        <h1 class="display-6 fw-bold">Update Your Stylist Profile</h1>
+        <p class="text-muted">Keep your profile details current so customers can find and book you.</p>
+    {% else %}
+        <h1 class="display-6 fw-bold">Register as a Stylist</h1>
+        <p class="text-muted">Create your profile so customers can discover and book your services.</p>
+    {% endif %}
 </section>
 
 <div class="row justify-content-center">
@@ -24,7 +29,11 @@
                             {% endif %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-dark">Create Stylist Profile</button>
+                    {% if is_editing %}
+                        <button type="submit" class="btn btn-dark">Update Stylist Profile</button>
+                    {% else %}
+                        <button type="submit" class="btn btn-dark">Create Stylist Profile</button>
+                    {% endif %}
                 </form>
             </div>
         </div>
