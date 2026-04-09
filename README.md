@@ -51,3 +51,4 @@ python manage.py runserver
 - Add salon services
 - Manage stylist profiles
 - View and update booking status
+- Replace placeholder service images by editing a service in the admin panel
