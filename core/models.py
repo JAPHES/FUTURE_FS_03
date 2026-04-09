@@ -14,6 +14,15 @@ class StylistProfile(models.Model):
     class Meta:
         ordering = ["full_name"]
 
+    @property
+    def placeholder_image(self):
+        placeholder_map = {
+            "Jane Doe": "images/stylists/stylist-1.svg",
+            "Mary Wambui": "images/stylists/stylist-2.svg",
+            "Aisha Njeri": "images/stylists/stylist-3.svg",
+        }
+        return placeholder_map.get(self.full_name, "images/stylists/default-stylist.svg")
+
     def __str__(self):
         return self.full_name
 
