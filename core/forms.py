@@ -1,16 +1,30 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from .models import Booking, StylistProfile
 
 
 class CustomerRegistrationForm(UserCreationForm):
+    username = forms.CharField(max_length=150)
     email = forms.EmailField(required=True)
 
     class Meta:
         model = User
         fields = ["username", "email", "password1", "password2"]
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Keep the form clean and let validation messages appear only when needed.
+        for field_name in ["username", "email", "password1", "password2"]:
+            self.fields[field_name].help_text = ""
+
+    def clean_username(self):
+        username = self.cleaned_data["username"]
+        if User.objects.filter(username=username).exists():
+            raise ValidationError("A user with that username already exists.")
+        return username
 
 
 class StylistProfileForm(forms.ModelForm):
