@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="hero-section rounded-4 p-5 mb-5 text-white">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="badge bg-light text-dark mb-3">At-home salon booking made simple</span>
+            <h1 class="display-5 fw-bold">Book trusted salon services from the comfort of your home.</h1>
+            <p class="lead mt-3">Browse services, discover available stylists, and schedule appointments in a few clicks.</p>
+            <div class="d-flex gap-3 mt-4">
+                <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book Now</a>
+                <a href="{% url 'stylists' %}" class="btn btn-outline-light btn-lg">View Stylists</a>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="card border-0 shadow-lg">
+                <div class="card-body p-4">
+                    <h3 class="h4">Why customers choose SalonConnect</h3>
+                    <ul class="list-unstyled mt-3 mb-0">
+                        <li class="mb-3">Professional stylists available across multiple locations.</li>
+                        <li class="mb-3">Simple booking flow for hair, makeup, nails, and more.</li>
+                        <li class="mb-0">Already serving {{ booking_count }} booking{{ booking_count|pluralize }}.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h3 mb-0">Popular Services</h2>
+        <a href="{% url 'services' %}" class="btn btn-outline-dark">See All</a>
+    </div>
+    <div class="row g-4">
+        {% for service in services %}
+            <div class="col-md-4">
+                <div class="card h-100 shadow-sm border-0">
+                    <div class="card-body">
+                        <h3 class="h5">{{ service.name }}</h3>
+                        <p class="text-muted">{{ service.description|truncatewords:18 }}</p>
+                        <p class="fw-semibold mb-0">KES {{ service.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info mb-0">No services have been added yet. Add some from the admin panel.</div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+
+<section>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="h3 mb-0">Available Stylists</h2>
+        <a href="{% url 'stylists' %}" class="btn btn-outline-dark">Browse Stylists</a>
+    </div>
+    <div class="row g-4">
+        {% for stylist in stylists %}
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="h5">{{ stylist.full_name }}</h3>
+                        <p class="mb-1"><strong>Location:</strong> {{ stylist.location }}</p>
+                        <p class="text-muted">{{ stylist.bio|truncatewords:20 }}</p>
+                        <a href="{% url 'book_service' %}?stylist={{ stylist.id }}" class="btn btn-dark">Book</a>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info mb-0">No stylist profiles are available yet.</div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

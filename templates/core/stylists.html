@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="page-header mb-4">
+    <h1 class="display-6 fw-bold">Available Stylists</h1>
+    <p class="text-muted">Find stylists near you and book an at-home salon appointment.</p>
+</section>
+
+<form method="get" class="row g-3 align-items-end mb-4">
+    <div class="col-md-6">
+        <label for="location" class="form-label">Search by location</label>
+        <input type="text" class="form-control" id="location" name="location" value="{{ location_query }}" placeholder="e.g. Nairobi or Meru">
+    </div>
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-dark w-100">Search</button>
+    </div>
+    <div class="col-md-3">
+        <a href="{% url 'stylists' %}" class="btn btn-outline-secondary w-100">Clear</a>
+    </div>
+</form>
+
+<div class="row g-4">
+    {% for stylist in stylists %}
+        <div class="col-md-6">
+            <div class="card h-100 border-0 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start mb-3">
+                        <div>
+                            <h2 class="h4 mb-1">{{ stylist.full_name }}</h2>
+                            <p class="text-muted mb-0">{{ stylist.location }}</p>
+                        </div>
+                        <span class="badge bg-success">Available</span>
+                    </div>
+                    <p><strong>Phone:</strong> {{ stylist.phone }}</p>
+                    <p class="text-muted">{{ stylist.bio }}</p>
+                    <a href="{% url 'book_service' %}?stylist={{ stylist.id }}" class="btn btn-dark">Book</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-warning">No stylists matched your search.</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
