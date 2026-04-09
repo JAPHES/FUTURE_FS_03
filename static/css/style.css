@@ -255,3 +255,24 @@ textarea:focus {
 .text-muted {
     color: #7c6255 !important;
 }
+
+.dashboard-card {
+    background: linear-gradient(135deg, #fff8f2, #f4dfd2);
+}
+
+.dashboard-panel {
+    background: linear-gradient(180deg, rgba(255, 251, 247, 0.98), rgba(246, 233, 223, 0.98));
+}
+
+.dashboard-label {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #8a664f;
+    margin-bottom: 0.5rem;
+}
+
+.table thead th {
+    color: #6b4836;
+    border-bottom-color: rgba(139, 81, 49, 0.2);
+}

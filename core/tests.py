@@ -5,7 +5,7 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from .models import Booking, Service, StylistProfile
-from .views import book_service, home, stylist_list
+from .views import admin_dashboard, book_service, home, stylist_list
 
 
 class CoreViewsTests(TestCase):
@@ -13,6 +13,9 @@ class CoreViewsTests(TestCase):
         self.factory = RequestFactory()
         self.customer = User.objects.create_user(
             username="customer", password="testpass123"
+        )
+        self.admin_user = User.objects.create_user(
+            username="admin", password="testpass123", is_staff=True
         )
         stylist_user = User.objects.create_user(
             username="stylist", password="testpass123"
@@ -92,3 +95,9 @@ class CoreViewsTests(TestCase):
         profile = StylistProfile.objects.get(user=self.customer)
         self.assertEqual(profile.full_name, "Updated Name")
         self.assertEqual(profile.location, "Nairobi")
+
+    def test_staff_user_can_open_admin_dashboard(self):
+        request = self.factory.get(reverse("admin_dashboard"))
+        request.user = self.admin_user
+        response = admin_dashboard(request)
+        self.assertEqual(response.status_code, 200)

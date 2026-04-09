@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import BookingForm, CustomerRegistrationForm, StylistProfileForm
@@ -125,3 +126,29 @@ def booking_list(request):
         ).filter(customer=request.user)
 
     return render(request, "core/bookings.html", {"bookings": bookings})
+
+
+@login_required
+def admin_dashboard(request):
+    if not request.user.is_staff:
+        messages.error(request, "You do not have permission to view the admin dashboard.")
+        return redirect("home")
+
+    bookings = Booking.objects.select_related("customer", "stylist", "service")
+    recent_bookings = bookings.order_by("-created_at")[:5]
+    status_counts = {
+        item["status"]: item["total"]
+        for item in bookings.values("status").annotate(total=Count("id"))
+    }
+
+    context = {
+        "total_bookings": bookings.count(),
+        "total_services": Service.objects.count(),
+        "total_stylists": StylistProfile.objects.count(),
+        "available_stylists": StylistProfile.objects.filter(is_available=True).count(),
+        "pending_bookings": status_counts.get(Booking.STATUS_PENDING, 0),
+        "confirmed_bookings": status_counts.get(Booking.STATUS_CONFIRMED, 0),
+        "completed_bookings": status_counts.get(Booking.STATUS_COMPLETED, 0),
+        "recent_bookings": recent_bookings,
+    }
+    return render(request, "core/admin_dashboard.html", context)
