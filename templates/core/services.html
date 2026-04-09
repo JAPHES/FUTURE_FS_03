@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <section class="page-header mb-4">
@@ -10,6 +11,11 @@
     {% for service in services %}
         <div class="col-md-6 col-lg-4">
             <div class="card h-100 border-0 shadow-sm">
+                {% if service.image %}
+                    <img src="{{ service.image.url }}" class="card-img-top service-image" alt="{{ service.name }}">
+                {% else %}
+                    <img src="{% static service.placeholder_image %}" class="card-img-top service-image" alt="{{ service.name }}">
+                {% endif %}
                 <div class="card-body">
                     <h2 class="h4">{{ service.name }}</h2>
                     <p class="text-muted">{{ service.description }}</p>
