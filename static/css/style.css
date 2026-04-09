@@ -1,0 +1,38 @@
+body {
+    background: linear-gradient(180deg, #fff8f1 0%, #ffffff 35%, #f7f7f7 100%);
+    color: #1f2933;
+}
+
+.hero-section {
+    background: linear-gradient(135deg, #111827, #9a3412);
+}
+
+.card {
+    border-radius: 1rem;
+}
+
+.page-header {
+    padding: 1rem 0;
+}
+
+.navbar .btn-link {
+    text-decoration: none;
+}
+
+input,
+select,
+textarea {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #d1d5db;
+    border-radius: 0.75rem;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+    outline: none;
+    border-color: #111827;
+    box-shadow: 0 0 0 0.15rem rgba(17, 24, 39, 0.15);
+}
