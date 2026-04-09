@@ -12,7 +12,7 @@ class StylistProfileAdmin(admin.ModelAdmin):
 
 @admin.register(Service)
 class ServiceAdmin(admin.ModelAdmin):
-    list_display = ("name", "price")
+    list_display = ("name", "price", "image")
     search_fields = ("name",)
 
 

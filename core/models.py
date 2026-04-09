@@ -22,9 +22,22 @@ class Service(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
     price = models.DecimalField(max_digits=8, decimal_places=2)
+    image = models.ImageField(upload_to="services/", blank=True, null=True)
 
     class Meta:
         ordering = ["name"]
+
+    @property
+    def placeholder_image(self):
+        placeholder_map = {
+            "Haircut": "images/services/haircut.svg",
+            "Braiding": "images/services/braiding.svg",
+            "Makeup": "images/services/makeup.svg",
+            "Nails": "images/services/nails.svg",
+            "Pedicure": "images/services/pedicure.svg",
+            "Facial": "images/services/facial.svg",
+        }
+        return placeholder_map.get(self.name, "images/services/default-service.svg")
 
     def __str__(self):
         return f"{self.name} - KES {self.price}"
