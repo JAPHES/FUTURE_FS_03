@@ -1,10 +1,39 @@
+:root {
+    --salon-cream: #fff7ef;
+    --salon-blush: #f8e3d7;
+    --salon-peach: #efc2a4;
+    --salon-caramel: #b86b43;
+    --salon-espresso: #4b2618;
+    --salon-deep: #24130e;
+    --salon-surface: rgba(255, 250, 245, 0.9);
+    --salon-border: rgba(139, 81, 49, 0.14);
+    --salon-text: #2f211b;
+}
+
 body {
-    background: linear-gradient(180deg, #fff8f1 0%, #ffffff 35%, #f7f7f7 100%);
-    color: #1f2933;
+    background:
+        radial-gradient(circle at top left, rgba(239, 194, 164, 0.35), transparent 28%),
+        radial-gradient(circle at top right, rgba(248, 227, 215, 0.7), transparent 24%),
+        linear-gradient(180deg, #fff8f2 0%, #fff4ec 40%, #f7ebe2 100%);
+    color: var(--salon-text);
+}
+
+main {
+    position: relative;
+}
+
+.site-navbar {
+    background: linear-gradient(135deg, #2f1711, #6f3b24);
+    border-bottom: 1px solid rgba(255, 240, 230, 0.1);
+}
+
+.site-footer {
+    background: linear-gradient(180deg, #f7e6db, #f3ddd0);
+    border-color: rgba(139, 81, 49, 0.16) !important;
 }
 
 .hero-section {
-    background: linear-gradient(135deg, #111827, #9a3412);
+    background: linear-gradient(135deg, #351810, #a8572f);
     padding: clamp(1.25rem, 2.2vw, 2rem);
     min-height: min(58vh, 500px);
     display: flex;
@@ -37,7 +66,7 @@ body {
     overflow: hidden;
     min-height: clamp(220px, 32vh, 340px);
     height: 100%;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 247, 239, 0.08);
 }
 
 .hero-visual-image {
@@ -54,13 +83,16 @@ body {
     bottom: 1.25rem;
     padding: 1rem 1.25rem;
     border-radius: 1rem;
-    background: rgba(17, 24, 39, 0.84);
+    background: rgba(36, 19, 14, 0.82);
     backdrop-filter: blur(8px);
 }
 
 .card {
     border-radius: 1rem;
     overflow: hidden;
+    background: linear-gradient(180deg, rgba(255, 252, 249, 0.98), rgba(250, 241, 234, 0.98));
+    border: 1px solid var(--salon-border);
+    box-shadow: 0 16px 40px rgba(111, 59, 36, 0.08);
 }
 
 .page-header {
@@ -74,13 +106,13 @@ body {
 .service-image {
     height: 220px;
     object-fit: cover;
-    background: #f3f4f6;
+    background: linear-gradient(180deg, #f6e6da, #efd2c2);
 }
 
 .stylist-image {
     height: 260px;
     object-fit: cover;
-    background: linear-gradient(180deg, #f3f4f6, #e5e7eb);
+    background: linear-gradient(180deg, #f7e7dc, #edcbb7);
 }
 
 .auth-card {
@@ -91,7 +123,7 @@ body {
     position: relative;
     height: 100%;
     min-height: 320px;
-    background: #111827;
+    background: var(--salon-deep);
 }
 
 .auth-side-image {
@@ -108,7 +140,52 @@ body {
     padding: 1.25rem;
     border-radius: 1rem;
     color: #ffffff;
-    background: linear-gradient(180deg, rgba(17, 24, 39, 0.3), rgba(17, 24, 39, 0.85));
+    background: linear-gradient(180deg, rgba(53, 24, 16, 0.25), rgba(36, 19, 14, 0.88));
+}
+
+.btn-dark {
+    background-color: var(--salon-espresso);
+    border-color: var(--salon-espresso);
+}
+
+.btn-dark:hover,
+.btn-dark:focus {
+    background-color: #633120;
+    border-color: #633120;
+}
+
+.btn-outline-dark {
+    color: var(--salon-espresso);
+    border-color: rgba(75, 38, 24, 0.35);
+    background: rgba(255, 249, 243, 0.85);
+}
+
+.btn-outline-dark:hover,
+.btn-outline-dark:focus {
+    color: #fffaf5;
+    background: var(--salon-espresso);
+    border-color: var(--salon-espresso);
+}
+
+.badge.bg-success {
+    background-color: #7b8f55 !important;
+}
+
+.table-dark,
+.table-dark th {
+    background-color: #5f3322 !important;
+}
+
+.alert-info {
+    background-color: #f5e6da;
+    border-color: #e9cdb9;
+    color: #6b3a24;
+}
+
+.alert-warning {
+    background-color: #fff0dd;
+    border-color: #f2c998;
+    color: #7a4519;
 }
 
 @media (max-width: 991.98px) {
@@ -161,14 +238,20 @@ textarea {
     display: block;
     width: 100%;
     padding: 0.75rem;
-    border: 1px solid #d1d5db;
+    border: 1px solid rgba(139, 81, 49, 0.18);
     border-radius: 0.75rem;
+    background: rgba(255, 250, 245, 0.95);
+    color: var(--salon-text);
 }
 
 input:focus,
 select:focus,
 textarea:focus {
     outline: none;
-    border-color: #111827;
-    box-shadow: 0 0 0 0.15rem rgba(17, 24, 39, 0.15);
+    border-color: var(--salon-caramel);
+    box-shadow: 0 0 0 0.15rem rgba(184, 107, 67, 0.16);
+}
+
+.text-muted {
+    color: #7c6255 !important;
 }
