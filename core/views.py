@@ -4,8 +4,22 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import BookingForm, CustomerRegistrationForm, StylistProfileForm
+from .forms import (
+    AdminBookingStatusForm,
+    AdminServiceForm,
+    AdminStylistUpdateForm,
+    BookingForm,
+    CustomerRegistrationForm,
+    StylistProfileForm,
+)
 from .models import Booking, Service, StylistProfile
+
+
+def require_admin(request):
+    if not request.user.is_staff:
+        messages.error(request, "You do not have permission to view the admin area.")
+        return redirect("home")
+    return None
 
 
 def home(request):
@@ -130,9 +144,9 @@ def booking_list(request):
 
 @login_required
 def admin_dashboard(request):
-    if not request.user.is_staff:
-        messages.error(request, "You do not have permission to view the admin dashboard.")
-        return redirect("home")
+    denied = require_admin(request)
+    if denied:
+        return denied
 
     bookings = Booking.objects.select_related("customer", "stylist", "service")
     recent_bookings = bookings.order_by("-created_at")[:5]
@@ -150,5 +164,88 @@ def admin_dashboard(request):
         "confirmed_bookings": status_counts.get(Booking.STATUS_CONFIRMED, 0),
         "completed_bookings": status_counts.get(Booking.STATUS_COMPLETED, 0),
         "recent_bookings": recent_bookings,
+        "active_admin_tab": "dashboard",
     }
-    return render(request, "core/admin_dashboard.html", context)
+    return render(request, "core/admin/dashboard.html", context)
+
+
+@login_required
+def admin_bookings(request):
+    denied = require_admin(request)
+    if denied:
+        return denied
+
+    if request.method == "POST":
+        booking = get_object_or_404(Booking, id=request.POST.get("booking_id"))
+        form = AdminBookingStatusForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Booking status updated successfully.")
+            return redirect("admin_bookings")
+
+    bookings = Booking.objects.select_related("customer", "stylist", "service").all()
+    context = {
+        "bookings": bookings,
+        "status_choices": Booking.STATUS_CHOICES,
+        "active_admin_tab": "bookings",
+    }
+    return render(request, "core/admin/bookings.html", context)
+
+
+@login_required
+def admin_services(request):
+    denied = require_admin(request)
+    if denied:
+        return denied
+
+    editing_service = None
+    service_id = request.GET.get("edit")
+    if service_id:
+        editing_service = get_object_or_404(Service, id=service_id)
+
+    if request.method == "POST":
+        editing_service = None
+        post_service_id = request.POST.get("service_id")
+        if post_service_id:
+            editing_service = get_object_or_404(Service, id=post_service_id)
+
+        form = AdminServiceForm(request.POST, request.FILES, instance=editing_service)
+        if form.is_valid():
+            form.save()
+            if editing_service:
+                messages.success(request, "Service updated successfully.")
+            else:
+                messages.success(request, "Service created successfully.")
+            return redirect("admin_services")
+    else:
+        form = AdminServiceForm(instance=editing_service)
+
+    context = {
+        "form": form,
+        "services": Service.objects.all(),
+        "editing_service": editing_service,
+        "active_admin_tab": "services",
+    }
+    return render(request, "core/admin/services.html", context)
+
+
+@login_required
+def admin_stylists(request):
+    denied = require_admin(request)
+    if denied:
+        return denied
+
+    if request.method == "POST":
+        stylist = get_object_or_404(StylistProfile, id=request.POST.get("stylist_id"))
+        form = AdminStylistUpdateForm(request.POST, instance=stylist)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Stylist profile updated successfully.")
+            return redirect("admin_stylists")
+
+    stylists = StylistProfile.objects.select_related("user").all()
+    context = {
+        "stylists": stylists,
+        "active_admin_tab": "stylists",
+    }
+    return render(request, "core/admin/stylists.html", context)

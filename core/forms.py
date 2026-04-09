@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 
-from .models import Booking, StylistProfile
+from .models import Booking, Service, StylistProfile
 
 
 class CustomerRegistrationForm(UserCreationForm):
@@ -59,3 +59,24 @@ class BookingForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Customers should only be able to choose stylists who are available.
         self.fields["stylist"].queryset = StylistProfile.objects.filter(is_available=True)
+
+
+class AdminServiceForm(forms.ModelForm):
+    class Meta:
+        model = Service
+        fields = ["name", "description", "price", "image"]
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 4}),
+        }
+
+
+class AdminBookingStatusForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ["status"]
+
+
+class AdminStylistUpdateForm(forms.ModelForm):
+    class Meta:
+        model = StylistProfile
+        fields = ["full_name", "phone", "location", "is_available"]

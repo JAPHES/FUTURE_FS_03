@@ -260,6 +260,12 @@ textarea:focus {
     background: linear-gradient(135deg, #fff8f2, #f4dfd2);
 }
 
+.admin-sidebar {
+    position: sticky;
+    top: 1rem;
+    background: linear-gradient(180deg, #f6e5d9, #efd4c2);
+}
+
 .dashboard-panel {
     background: linear-gradient(180deg, rgba(255, 251, 247, 0.98), rgba(246, 233, 223, 0.98));
 }
@@ -275,4 +281,24 @@ textarea:focus {
 .table thead th {
     color: #6b4836;
     border-bottom-color: rgba(139, 81, 49, 0.2);
+}
+
+.admin-inline-form {
+    min-width: 180px;
+}
+
+.admin-select {
+    min-width: 140px;
+    padding: 0.45rem 0.6rem;
+}
+
+.form-check-input {
+    width: auto;
+    display: inline-block;
+    border-color: rgba(139, 81, 49, 0.3);
+}
+
+.form-check-input:checked {
+    background-color: var(--salon-espresso);
+    border-color: var(--salon-espresso);
 }

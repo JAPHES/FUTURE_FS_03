@@ -1,0 +1,60 @@
+{% extends 'core/admin/base.html' %}
+{% load static %}
+
+{% block admin_content %}
+<section class="page-header mb-4">
+    <h1 class="display-6 fw-bold">Manage Services</h1>
+    <p class="text-muted">Create new salon services or update existing ones directly from the admin panel.</p>
+</section>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <div class="card dashboard-panel">
+            <div class="card-body">
+                <h2 class="h4 mb-3">{% if editing_service %}Edit Service{% else %}Add Service{% endif %}</h2>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {% if editing_service %}
+                        <input type="hidden" name="service_id" value="{{ editing_service.id }}">
+                    {% endif %}
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                            {% if field.errors %}
+                                <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <button type="submit" class="btn btn-dark w-100">{% if editing_service %}Update Service{% else %}Add Service{% endif %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-7">
+        <div class="row g-4">
+            {% for service in services %}
+                <div class="col-md-6">
+                    <div class="card h-100 dashboard-panel">
+                        {% if service.image %}
+                            <img src="{{ service.image.url }}" class="card-img-top service-image" alt="{{ service.name }}">
+                        {% else %}
+                            <img src="{% static service.placeholder_image %}" class="card-img-top service-image" alt="{{ service.name }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h3 class="h5">{{ service.name }}</h3>
+                            <p class="text-muted">{{ service.description|truncatewords:16 }}</p>
+                            <p class="fw-semibold">KES {{ service.price }}</p>
+                            <a href="{% url 'admin_services' %}?edit={{ service.id }}" class="btn btn-outline-dark">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <div class="col-12">
+                    <div class="alert alert-info mb-0">No services available yet.</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -5,7 +5,7 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 
 from .models import Booking, Service, StylistProfile
-from .views import admin_dashboard, book_service, home, stylist_list
+from .views import admin_bookings, admin_dashboard, book_service, home, stylist_list
 
 
 class CoreViewsTests(TestCase):
@@ -100,4 +100,15 @@ class CoreViewsTests(TestCase):
         request = self.factory.get(reverse("admin_dashboard"))
         request.user = self.admin_user
         response = admin_dashboard(request)
+        self.assertEqual(response.status_code, 200)
+
+    def test_non_admin_is_redirected_from_admin_bookings(self):
+        self.client.force_login(self.customer)
+        response = self.client.get(reverse("admin_bookings"))
+        self.assertEqual(response.status_code, 302)
+
+    def test_staff_user_can_open_admin_bookings(self):
+        request = self.factory.get(reverse("admin_bookings"))
+        request.user = self.admin_user
+        response = admin_bookings(request)
         self.assertEqual(response.status_code, 200)

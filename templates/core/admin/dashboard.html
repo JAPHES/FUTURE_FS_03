@@ -1,0 +1,114 @@
+{% extends 'core/admin/base.html' %}
+
+{% block admin_content %}
+<section class="page-header mb-4">
+    <h1 class="display-6 fw-bold">Admin Dashboard</h1>
+    <p class="text-muted">Monitor bookings, services, stylists, and recent activity from one place.</p>
+</section>
+
+<div class="row g-4 mb-4">
+    <div class="col-md-6 col-xl-3">
+        <div class="card h-100 dashboard-card">
+            <div class="card-body">
+                <p class="dashboard-label">Total Bookings</p>
+                <h2 class="display-6 fw-bold mb-0">{{ total_bookings }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card h-100 dashboard-card">
+            <div class="card-body">
+                <p class="dashboard-label">Services</p>
+                <h2 class="display-6 fw-bold mb-0">{{ total_services }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card h-100 dashboard-card">
+            <div class="card-body">
+                <p class="dashboard-label">Stylists</p>
+                <h2 class="display-6 fw-bold mb-0">{{ total_stylists }}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6 col-xl-3">
+        <div class="card h-100 dashboard-card">
+            <div class="card-body">
+                <p class="dashboard-label">Available Stylists</p>
+                <h2 class="display-6 fw-bold mb-0">{{ available_stylists }}</h2>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-4">
+    <div class="col-lg-4">
+        <div class="card h-100 dashboard-panel">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Booking Status</h2>
+                <div class="d-flex justify-content-between py-2 border-bottom">
+                    <span>Pending</span>
+                    <strong>{{ pending_bookings }}</strong>
+                </div>
+                <div class="d-flex justify-content-between py-2 border-bottom">
+                    <span>Confirmed</span>
+                    <strong>{{ confirmed_bookings }}</strong>
+                </div>
+                <div class="d-flex justify-content-between py-2">
+                    <span>Completed</span>
+                    <strong>{{ completed_bookings }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-8">
+        <div class="card h-100 dashboard-panel">
+            <div class="card-body">
+                <h2 class="h4 mb-3">Admin Activities</h2>
+                <div class="d-flex flex-wrap gap-3">
+                    <a href="{% url 'admin_bookings' %}" class="btn btn-dark">Review Bookings</a>
+                    <a href="{% url 'admin_services' %}" class="btn btn-dark">Manage Services</a>
+                    <a href="{% url 'admin_stylists' %}" class="btn btn-dark">Manage Stylists</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card dashboard-panel">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 class="h4 mb-0">Recent Activity</h2>
+            <a href="{% url 'admin_bookings' %}" class="btn btn-outline-dark">Open Booking Management</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle mb-0">
+                <thead>
+                    <tr>
+                        <th>Customer</th>
+                        <th>Stylist</th>
+                        <th>Service</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for booking in recent_bookings %}
+                        <tr>
+                            <td>{{ booking.customer.username }}</td>
+                            <td>{{ booking.stylist.full_name }}</td>
+                            <td>{{ booking.service.name }}</td>
+                            <td>{{ booking.date }}</td>
+                            <td>{{ booking.status }}</td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center py-4">No admin activity yet.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

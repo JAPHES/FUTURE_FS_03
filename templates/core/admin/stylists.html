@@ -1,0 +1,56 @@
+{% extends 'core/admin/base.html' %}
+{% load static %}
+
+{% block admin_content %}
+<section class="page-header mb-4">
+    <h1 class="display-6 fw-bold">Manage Stylists</h1>
+    <p class="text-muted">Review stylist profiles and update availability or profile details.</p>
+</section>
+
+<div class="row g-4">
+    {% for stylist in stylists %}
+        <div class="col-xl-6">
+            <div class="card dashboard-panel h-100">
+                <div class="row g-0 h-100">
+                    <div class="col-md-5">
+                        {% if stylist.profile_image %}
+                            <img src="{{ stylist.profile_image.url }}" class="stylist-image h-100 w-100" alt="{{ stylist.full_name }}">
+                        {% else %}
+                            <img src="{% static stylist.placeholder_image %}" class="stylist-image h-100 w-100" alt="{{ stylist.full_name }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card-body">
+                            <form method="post">
+                                {% csrf_token %}
+                                <input type="hidden" name="stylist_id" value="{{ stylist.id }}">
+                                <div class="mb-2">
+                                    <label class="form-label">Full name</label>
+                                    <input type="text" name="full_name" value="{{ stylist.full_name }}">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Phone</label>
+                                    <input type="text" name="phone" value="{{ stylist.phone }}">
+                                </div>
+                                <div class="mb-2">
+                                    <label class="form-label">Location</label>
+                                    <input type="text" name="location" value="{{ stylist.location }}">
+                                </div>
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" name="is_available" id="stylist-{{ stylist.id }}" {% if stylist.is_available %}checked{% endif %}>
+                                    <label class="form-check-label" for="stylist-{{ stylist.id }}">Available for booking</label>
+                                </div>
+                                <button type="submit" class="btn btn-dark btn-sm">Save Changes</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="col-12">
+            <div class="alert alert-info mb-0">No stylist profiles available yet.</div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
