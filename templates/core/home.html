@@ -2,20 +2,20 @@
 {% load static %}
 
 {% block content %}
-<section class="hero-section rounded-4 p-5 mb-5 text-white">
-    <div class="row align-items-center g-4">
-        <div class="col-lg-7">
+<section class="hero-section rounded-4 text-white">
+    <div class="row align-items-center g-4 hero-row">
+        <div class="col-lg-7 hero-copy">
             <span class="badge bg-light text-dark mb-3">At-home salon booking made simple</span>
-            <h1 class="display-5 fw-bold">Book trusted salon services from the comfort of your home.</h1>
-            <p class="lead mt-3">Browse services, discover available stylists, and schedule appointments in a few clicks.</p>
-            <div class="d-flex gap-3 mt-4">
+            <h1 class="hero-title fw-bold">Book trusted salon services from the comfort of your home.</h1>
+            <p class="hero-lead mt-3">Browse services, discover available stylists, and schedule appointments in a few clicks.</p>
+            <div class="d-flex gap-3 mt-4 hero-actions">
                 <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book Now</a>
                 <a href="{% url 'stylists' %}" class="btn btn-outline-light btn-lg">View Stylists</a>
             </div>
         </div>
         <div class="col-lg-5">
             <div class="hero-visual shadow-lg">
-                <img src="{% static 'images/hero/salon-hero.svg' %}" alt="Salon stylist at work" class="hero-visual-image">
+                <img src="{% static 'images/hero/bannersalonist.jpg' %}" alt="Salon stylist at work" class="hero-visual-image">
                 <div class="hero-visual-badge">
                     <p class="mb-1 fw-semibold">Trusted home beauty care</p>
                     <p class="mb-0 small text-white-50">{{ booking_count }} booking{{ booking_count|pluralize }} completed through SalonConnect</p>
