@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <rect width="800" height="600" fill="#fff7ed"/>
+  <circle cx="400" cy="210" r="110" fill="#fed7aa"/>
+  <path d="M280 470 C290 360, 340 320, 400 320 C460 320, 510 360, 520 470 Z" fill="#7c2d12"/>
+  <path d="M300 185 C315 95, 485 95, 500 185 C470 125, 330 125, 300 185 Z" fill="#111827"/>
+  <circle cx="360" cy="205" r="10" fill="#111827"/>
+  <circle cx="440" cy="205" r="10" fill="#111827"/>
+  <path d="M360 260 C385 285, 415 285, 440 260" stroke="#9a3412" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <text x="60" y="545" font-family="Arial, sans-serif" font-size="52" font-weight="700" fill="#7c2d12">Stylist</text>
+</svg>
