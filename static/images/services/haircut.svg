@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#f6efe8"/>
+  <circle cx="180" cy="140" r="70" fill="#d97706"/>
+  <rect x="120" y="210" width="120" height="150" rx="24" fill="#1f2937"/>
+  <path d="M420 120 L520 220 L480 260 L380 160 Z" fill="#111827"/>
+  <path d="M520 220 L620 120 L660 160 L560 260 Z" fill="#9ca3af"/>
+  <circle cx="540" cy="240" r="28" fill="#f59e0b"/>
+  <text x="60" y="445" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#111827">Haircut</text>
+</svg>

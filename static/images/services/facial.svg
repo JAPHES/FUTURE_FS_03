@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#f0fdf4"/>
+  <circle cx="240" cy="210" r="110" fill="#dcfce7"/>
+  <circle cx="205" cy="195" r="10" fill="#166534"/>
+  <circle cx="275" cy="195" r="10" fill="#166534"/>
+  <path d="M205 255 C225 280, 255 280, 275 255" stroke="#166534" stroke-width="10" fill="none" stroke-linecap="round"/>
+  <path d="M470 130 C520 90, 595 95, 645 145 C685 185, 700 250, 665 305 C625 365, 540 382, 475 340 C405 295, 410 185, 470 130 Z" fill="#86efac"/>
+  <circle cx="515" cy="205" r="18" fill="#bbf7d0"/>
+  <circle cx="590" cy="245" r="24" fill="#dcfce7"/>
+  <text x="60" y="445" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#166534">Facial</text>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#f3f4f6"/>
+  <rect x="150" y="120" width="500" height="260" rx="40" fill="#d1d5db"/>
+  <circle cx="300" cy="250" r="52" fill="#9ca3af"/>
+  <path d="M390 210 H550 V250 H390 Z" fill="#6b7280"/>
+  <path d="M390 280 H510 V320 H390 Z" fill="#9ca3af"/>
+  <text x="60" y="445" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#374151">Salon Service</text>
+</svg>

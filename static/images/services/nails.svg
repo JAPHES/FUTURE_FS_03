@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#eff6ff"/>
+  <path d="M145 315 C180 200, 290 170, 360 210 C430 250, 420 360, 335 385 C260 408, 170 380, 145 315 Z" fill="#f8c7c0"/>
+  <rect x="430" y="120" width="95" height="220" rx="24" fill="#2563eb"/>
+  <rect x="550" y="150" width="95" height="190" rx="24" fill="#93c5fd"/>
+  <circle cx="597" cy="120" r="28" fill="#1d4ed8"/>
+  <text x="60" y="445" font-family="Arial, sans-serif" font-size="54" font-weight="700" fill="#1d4ed8">Nails</text>
+</svg>
