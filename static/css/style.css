@@ -26,6 +26,12 @@ body {
     background: #f3f4f6;
 }
 
+.stylist-image {
+    height: 260px;
+    object-fit: cover;
+    background: linear-gradient(180deg, #f3f4f6, #e5e7eb);
+}
+
 input,
 select,
 textarea {
