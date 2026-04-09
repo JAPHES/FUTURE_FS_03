@@ -1,27 +1,42 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-lg-6">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
-                <h1 class="h3 mb-3">Create an Account</h1>
-                <form method="post">
-                    {% csrf_token %}
-                    {% for field in form %}
-                        <div class="mb-3">
-                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                            {{ field }}
-                            {% if field.help_text %}
-                                <div class="form-text">{{ field.help_text|safe }}</div>
-                            {% endif %}
-                            {% if field.errors %}
-                                <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
-                            {% endif %}
+    <div class="col-xl-10">
+        <div class="card border-0 shadow auth-card overflow-hidden">
+            <div class="row g-0">
+                <div class="col-lg-6">
+                    <div class="auth-image-panel">
+                        <img src="{% static 'images/stylists/salonist.jpg' %}" alt="Salon stylist" class="auth-side-image">
+                        <div class="auth-image-overlay">
+                            <h2 class="h3 fw-bold mb-2">Join SalonConnect</h2>
+                            <p class="mb-0">Create your account to book at-home beauty services or start your journey as a stylist.</p>
                         </div>
-                    {% endfor %}
-                    <button type="submit" class="btn btn-dark w-100">Register</button>
-                </form>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-body p-4 p-lg-5">
+                        <h1 class="h3 mb-3">Create an Account</h1>
+                        <form method="post">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="mb-3">
+                                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                    {{ field }}
+                                    {% if field.help_text %}
+                                        <div class="form-text">{{ field.help_text|safe }}</div>
+                                    {% endif %}
+                                    {% if field.errors %}
+                                        <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                            <button type="submit" class="btn btn-dark w-100">Register</button>
+                        </form>
+                        <p class="mt-3 mb-0 text-muted">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
