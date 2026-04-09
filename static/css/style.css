@@ -5,8 +5,8 @@ body {
 
 .hero-section {
     background: linear-gradient(135deg, #111827, #9a3412);
-    padding: clamp(1.5rem, 3vw, 2.5rem);
-    min-height: min(72vh, 640px);
+    padding: clamp(1.25rem, 2.2vw, 2rem);
+    min-height: min(58vh, 500px);
     display: flex;
     align-items: center;
     margin-bottom: 2rem;
@@ -21,21 +21,21 @@ body {
 }
 
 .hero-title {
-    font-size: clamp(2rem, 3.7vw, 3.4rem);
-    line-height: 1.08;
-    max-width: 12ch;
+    font-size: clamp(1.9rem, 3.2vw, 3rem);
+    line-height: 1.05;
+    max-width: 14ch;
 }
 
 .hero-lead {
-    font-size: clamp(1rem, 1.4vw, 1.2rem);
-    max-width: 52ch;
+    font-size: clamp(0.98rem, 1.15vw, 1.08rem);
+    max-width: 62ch;
 }
 
 .hero-visual {
     position: relative;
     border-radius: 1.5rem;
     overflow: hidden;
-    min-height: clamp(280px, 42vh, 460px);
+    min-height: clamp(220px, 32vh, 340px);
     height: 100%;
     background: rgba(255, 255, 255, 0.08);
 }
@@ -134,7 +134,7 @@ body {
     }
 
     .hero-visual {
-        min-height: 300px;
+        min-height: 280px;
     }
 }
 
