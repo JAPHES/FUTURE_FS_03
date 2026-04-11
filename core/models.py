@@ -72,6 +72,7 @@ class Booking(models.Model):
     service = models.ForeignKey(Service, on_delete=models.CASCADE, related_name="bookings")
     date = models.DateField()
     time = models.TimeField()
+    mobile_number = models.CharField(max_length=20, default="", blank=True)
     location = models.CharField(max_length=255)
     status = models.CharField(
         max_length=20, choices=STATUS_CHOICES, default=STATUS_PENDING

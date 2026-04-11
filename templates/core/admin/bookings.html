@@ -13,6 +13,7 @@
                 <thead>
                     <tr>
                         <th>Customer</th>
+                        <th>Mobile</th>
                         <th>Stylist</th>
                         <th>Service</th>
                         <th>Schedule</th>
@@ -24,6 +25,7 @@
                     {% for booking in bookings %}
                         <tr>
                             <td>{{ booking.customer.username }}</td>
+                            <td>{{ booking.mobile_number }}</td>
                             <td>{{ booking.stylist.full_name }}</td>
                             <td>{{ booking.service.name }}</td>
                             <td>{{ booking.date }} at {{ booking.time }}</td>
@@ -43,7 +45,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="6" class="text-center py-4">No bookings found.</td>
+                            <td colspan="7" class="text-center py-4">No bookings found.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

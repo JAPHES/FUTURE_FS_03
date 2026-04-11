@@ -51,6 +51,7 @@ class CoreViewsTests(TestCase):
                 "stylist": self.stylist.id,
                 "date": "2026-05-01",
                 "time": "10:30",
+                "mobile_number": "0712345678",
                 "location": "Westlands, Nairobi",
             },
         )
@@ -61,6 +62,7 @@ class CoreViewsTests(TestCase):
 
         self.assertEqual(response.status_code, 302)
         self.assertEqual(Booking.objects.count(), 1)
+        self.assertEqual(Booking.objects.first().mobile_number, "0712345678")
 
     def test_stylist_search_filters_by_location(self):
         request = self.factory.get(reverse("stylists"), {"location": "Nairobi"})

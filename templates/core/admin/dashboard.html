@@ -86,6 +86,7 @@
                 <thead>
                     <tr>
                         <th>Customer</th>
+                        <th>Mobile</th>
                         <th>Stylist</th>
                         <th>Service</th>
                         <th>Date</th>
@@ -96,6 +97,7 @@
                     {% for booking in recent_bookings %}
                         <tr>
                             <td>{{ booking.customer.username }}</td>
+                            <td>{{ booking.mobile_number }}</td>
                             <td>{{ booking.stylist.full_name }}</td>
                             <td>{{ booking.service.name }}</td>
                             <td>{{ booking.date }}</td>
@@ -103,7 +105,7 @@
                         </tr>
                     {% empty %}
                         <tr>
-                            <td colspan="5" class="text-center py-4">No admin activity yet.</td>
+                            <td colspan="6" class="text-center py-4">No admin activity yet.</td>
                         </tr>
                     {% endfor %}
                 </tbody>

@@ -46,10 +46,13 @@ class StylistProfileForm(forms.ModelForm):
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ["service", "stylist", "date", "time", "location"]
+        fields = ["service", "stylist", "date", "time", "mobile_number", "location"]
         widgets = {
             "date": forms.DateInput(attrs={"type": "date"}),
             "time": forms.TimeInput(attrs={"type": "time"}),
+            "mobile_number": forms.TextInput(
+                attrs={"placeholder": "Enter your mobile number"}
+            ),
             "location": forms.TextInput(
                 attrs={"placeholder": "Enter your home address"}
             ),
