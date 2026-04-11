@@ -63,14 +63,55 @@
 </section>
 
 <section class="mb-5">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h3 mb-0">Popular Services</h2>
-        <a href="{% url 'services' %}" class="btn btn-outline-dark">See All</a>
+    <div class="section-intro text-center mx-auto mb-4">
+        <span class="section-kicker">How It Works</span>
+        <h2 class="section-title mt-3">Book your salon experience in three simple steps.</h2>
+        <p class="text-muted mb-0">SalonConnect is designed to make beauty booking feel easy, quick, and trustworthy for both clients and stylists.</p>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card process-card h-100 border-0">
+                <div class="card-body p-4">
+                    <div class="process-number">01</div>
+                    <h3 class="h4 mt-3">Choose a Service</h3>
+                    <p class="text-muted mb-0">Browse hair, makeup, nails, skincare, and other beauty services that fit your needs.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card process-card h-100 border-0">
+                <div class="card-body p-4">
+                    <div class="process-number">02</div>
+                    <h3 class="h4 mt-3">Select a Stylist</h3>
+                    <p class="text-muted mb-0">Find available professionals near you and choose the stylist you want to work with.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card process-card h-100 border-0">
+                <div class="card-body p-4">
+                    <div class="process-number">03</div>
+                    <h3 class="h4 mt-3">Book at Home</h3>
+                    <p class="text-muted mb-0">Set your preferred date, time, phone number, and location, then wait for your appointment.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="section-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+        <div>
+            <span class="section-kicker">Popular Services</span>
+            <h2 class="section-title mt-3 mb-2">Salon services customers love booking most.</h2>
+            <p class="text-muted mb-0">Explore in-demand beauty services delivered with comfort, style, and convenience.</p>
+        </div>
+        <a href="{% url 'services' %}" class="btn btn-outline-dark align-self-start align-self-lg-auto">See All</a>
     </div>
     <div class="row g-4">
         {% for service in services %}
             <div class="col-md-4">
-                <div class="card h-100 shadow-sm border-0">
+                <div class="card service-card h-100 shadow-sm border-0">
                     {% if service.image %}
                         <img src="{{ service.image.url }}" class="card-img-top service-image" alt="{{ service.name }}">
                     {% else %}
@@ -79,7 +120,10 @@
                     <div class="card-body">
                         <h3 class="h5">{{ service.name }}</h3>
                         <p class="text-muted">{{ service.description|truncatewords:18 }}</p>
-                        <p class="fw-semibold mb-0">KES {{ service.price }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <p class="fw-semibold mb-0">KES {{ service.price }}</p>
+                            <a href="{% url 'book_service' %}?service={{ service.id }}" class="btn btn-dark btn-sm">Book</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -91,22 +135,29 @@
     </div>
 </section>
 
-<section>
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h2 class="h3 mb-0">Available Stylists</h2>
-        <a href="{% url 'stylists' %}" class="btn btn-outline-dark">Browse Stylists</a>
+<section class="mb-5">
+    <div class="section-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+        <div>
+            <span class="section-kicker">Featured Stylists</span>
+            <h2 class="section-title mt-3 mb-2">Meet available beauty professionals ready to serve you.</h2>
+            <p class="text-muted mb-0">Discover stylists who bring professional beauty care directly to your home.</p>
+        </div>
+        <a href="{% url 'stylists' %}" class="btn btn-outline-dark align-self-start align-self-lg-auto">Browse Stylists</a>
     </div>
     <div class="row g-4">
         {% for stylist in stylists %}
             <div class="col-md-4">
-                <div class="card h-100 border-0 shadow-sm">
+                <div class="card stylist-card h-100 border-0 shadow-sm">
                     {% if stylist.profile_image %}
                         <img src="{{ stylist.profile_image.url }}" class="card-img-top stylist-image" alt="{{ stylist.full_name }}">
                     {% else %}
                         <img src="{% static stylist.placeholder_image %}" class="card-img-top stylist-image" alt="{{ stylist.full_name }}">
                     {% endif %}
                     <div class="card-body">
-                        <h3 class="h5">{{ stylist.full_name }}</h3>
+                        <div class="d-flex justify-content-between align-items-start mb-2">
+                            <h3 class="h5 mb-0">{{ stylist.full_name }}</h3>
+                            <span class="badge bg-success">Available</span>
+                        </div>
                         <p class="mb-1"><strong>Location:</strong> {{ stylist.location }}</p>
                         <p class="text-muted">{{ stylist.bio|truncatewords:20 }}</p>
                         <a href="{% url 'book_service' %}?stylist={{ stylist.id }}" class="btn btn-dark">Book</a>
@@ -118,6 +169,26 @@
                 <div class="alert alert-info mb-0">No stylist profiles are available yet.</div>
             </div>
         {% endfor %}
+    </div>
+</section>
+
+<section class="cta-section rounded-4 text-white">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-8">
+            <span class="badge bg-light text-dark mb-3">Ready to get started?</span>
+            <h2 class="cta-title fw-bold">Book your next salon appointment or join SalonConnect as a stylist.</h2>
+            <p class="hero-lead text-white-50 mt-3 mb-0">Customers can schedule beauty care from home, and stylists can grow their visibility with a professional profile.</p>
+        </div>
+        <div class="col-lg-4">
+            <div class="d-grid gap-3">
+                <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book a Service</a>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'stylist_register' %}" class="btn btn-outline-light btn-lg">Update Stylist Profile</a>
+                {% else %}
+                    <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg">Create Account</a>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
