@@ -2,32 +2,63 @@
 {% load static %}
 
 {% block content %}
-<section class="page-header mb-4">
-    <h1 class="display-6 fw-bold">Salon Services</h1>
-    <p class="text-muted">Choose from beauty services that can be booked at your preferred location.</p>
-</section>
-
-<div class="row g-4">
-    {% for service in services %}
-        <div class="col-md-6 col-lg-4">
-            <div class="card h-100 border-0 shadow-sm">
-                {% if service.image %}
-                    <img src="{{ service.image.url }}" class="card-img-top service-image" alt="{{ service.name }}">
-                {% else %}
-                    <img src="{% static service.placeholder_image %}" class="card-img-top service-image" alt="{{ service.name }}">
-                {% endif %}
-                <div class="card-body">
-                    <h2 class="h4">{{ service.name }}</h2>
-                    <p class="text-muted">{{ service.description }}</p>
-                    <p class="fw-semibold">KES {{ service.price }}</p>
-                    <a href="{% url 'book_service' %}?service={{ service.id }}" class="btn btn-dark">Book This Service</a>
+<section class="hero-section rounded-4 text-white">
+    <div class="row align-items-center g-4 hero-row">
+        <div class="col-lg-8 hero-copy">
+            <span class="badge bg-light text-dark mb-3">Salon Services</span>
+            <h1 class="hero-title fw-bold">Choose beauty services that fit your style, schedule, and comfort.</h1>
+            <p class="hero-lead mt-3">From hair styling and braiding to makeup, nails, and skincare, explore services you can book from trusted professionals.</p>
+            <div class="d-flex gap-3 mt-4 hero-actions">
+                <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book Now</a>
+                <a href="{% url 'stylists' %}" class="btn btn-outline-light btn-lg">View Stylists</a>
+            </div>
+        </div>
+        <div class="col-lg-4">
+            <div class="hero-visual shadow-lg">
+                <img src="{% static 'images/services/nails.jpg' %}" alt="Salon services" class="hero-visual-image">
+                <div class="hero-visual-badge">
+                    <p class="mb-1 fw-semibold">{{ services|length }} service{{ services|pluralize }} available</p>
+                    <p class="mb-0 small text-white-50">Browse categories and choose the one that works best for your next appointment.</p>
                 </div>
             </div>
         </div>
-    {% empty %}
-        <div class="col-12">
-            <div class="alert alert-info">No services are available right now.</div>
+    </div>
+</section>
+
+<section class="mb-5">
+    <div class="section-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
+        <div>
+            <span class="section-kicker">Available Services</span>
+            <h2 class="section-title mt-3 mb-2">Find the salon treatment you want and book it with confidence.</h2>
+            <p class="text-muted mb-0">Each service is designed to be simple to browse and easy to schedule from home.</p>
         </div>
-    {% endfor %}
-</div>
+        <a href="{% url 'book_service' %}" class="btn btn-outline-dark align-self-start align-self-lg-auto">Open Booking Form</a>
+    </div>
+
+    <div class="row g-4">
+        {% for service in services %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card service-card h-100 border-0 shadow-sm">
+                    {% if service.image %}
+                        <img src="{{ service.image.url }}" class="card-img-top service-image" alt="{{ service.name }}">
+                    {% else %}
+                        <img src="{% static service.placeholder_image %}" class="card-img-top service-image" alt="{{ service.name }}">
+                    {% endif %}
+                    <div class="card-body">
+                        <h2 class="h4">{{ service.name }}</h2>
+                        <p class="text-muted">{{ service.description }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <p class="fw-semibold mb-0">KES {{ service.price }}</p>
+                            <a href="{% url 'book_service' %}?service={{ service.id }}" class="btn btn-dark btn-sm">Book This Service</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div class="col-12">
+                <div class="alert alert-info">No services are available right now.</div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}
