@@ -87,6 +87,77 @@ main {
     backdrop-filter: blur(8px);
 }
 
+.about-section {
+    background: linear-gradient(135deg, #351810, #a8572f);
+    border-radius: 1.5rem;
+    padding: clamp(1.25rem, 2.2vw, 2rem);
+    box-shadow: 0 20px 48px rgba(111, 59, 36, 0.12);
+}
+
+.about-row {
+    width: 100%;
+}
+
+.about-image-wrap {
+    position: relative;
+    border-radius: 1.5rem;
+    overflow: hidden;
+    min-height: clamp(220px, 32vh, 340px);
+    height: 100%;
+    background: rgba(255, 247, 239, 0.08);
+}
+
+.about-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.about-image-badge {
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1rem 1.1rem;
+    border-radius: 1rem;
+    background: rgba(36, 19, 14, 0.82);
+    color: #fff6f0;
+    backdrop-filter: blur(8px);
+}
+
+.about-image-badge span {
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255, 236, 223, 0.84);
+}
+
+.about-body {
+    padding-left: clamp(0rem, 1.5vw, 1rem);
+}
+
+.about-title {
+    font-size: clamp(1.9rem, 3.2vw, 3rem);
+    line-height: 1.05;
+    max-width: 14ch;
+}
+
+.about-text {
+    max-width: 62ch;
+}
+
+.about-pill {
+    padding: 0.55rem 1rem;
+    border-radius: 999px;
+    background: rgba(255, 248, 242, 0.12);
+    color: #fff6f0;
+    font-weight: 600;
+}
+
 .card {
     border-radius: 1rem;
     overflow: hidden;
@@ -213,6 +284,20 @@ main {
     .hero-visual {
         min-height: 280px;
     }
+
+    .about-image-wrap,
+    .about-image {
+        min-height: 280px;
+    }
+
+    .about-title,
+    .about-text {
+        max-width: none;
+    }
+
+    .about-body {
+        padding-left: 0;
+    }
 }
 
 @media (max-width: 575.98px) {
@@ -229,6 +314,22 @@ main {
         right: 0.85rem;
         bottom: 0.85rem;
         padding: 0.85rem 1rem;
+    }
+
+    .about-image-wrap,
+    .about-image {
+        min-height: 240px;
+    }
+
+    .about-image-badge {
+        left: 0.85rem;
+        right: 0.85rem;
+        bottom: 0.85rem;
+        padding: 0.85rem 0.95rem;
+    }
+
+    .about-body {
+        padding-left: 0;
     }
 }
 
