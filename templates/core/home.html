@@ -2,190 +2,240 @@
 {% load static %}
 
 {% block content %}
-<section class="hero-section rounded-4 text-white">
-    <div class="row align-items-center g-4 hero-row">
-        <div class="col-lg-8 hero-copy">
-            <span class="badge bg-light text-dark mb-3">At-home salon booking made simple</span>
-            <h1 class="hero-title fw-bold">Book trusted salon services from the comfort of your home.</h1>
-            <p class="hero-lead mt-3">Browse services, discover available stylists, and schedule appointments in a few clicks.</p>
-            <div class="d-flex gap-3 mt-4 hero-actions">
-                <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book Now</a>
-                <a href="{% url 'stylists' %}" class="btn btn-outline-light btn-lg">View Stylists</a>
+<section class="hero-section home-shell">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="section-kicker">Doorstep Beauty, Done Right</span>
+                <h1 class="hero-title">Book trusted salon professionals to your home in minutes.</h1>
+                <p class="hero-lead">SalonConnect makes beauty appointments feel effortless. Browse services, compare stylists, and reserve the experience you want without leaving home.</p>
+                <div class="hero-actions">
+                    <a href="{% url 'book_service' %}" class="btn-salon-primary">Book an Appointment</a>
+                    <a href="{% url 'stylists' %}" class="btn-salon-outline">Browse Stylists</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-chip">
+                        <strong>{{ booking_count }}+</strong>
+                        <span>Bookings made</span>
+                    </div>
+                    <div class="stat-chip">
+                        <strong>{{ services|length }}</strong>
+                        <span>Featured services</span>
+                    </div>
+                    <div class="stat-chip">
+                        <strong>{{ stylists|length }}</strong>
+                        <span>Available stylists</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="hero-visual shadow-lg">
-                <img src="{% static 'images/hero/bannersalonist.jpg' %}" alt="Salon stylist at work" class="hero-visual-image">
-                <div class="hero-visual-badge">
-                    <p class="mb-1 fw-semibold">Trusted home beauty care</p>
-                    <p class="mb-0 small text-white-50">{{ booking_count }} booking{{ booking_count|pluralize }} completed through SalonConnect</p>
+            <div class="col-lg-6">
+                <div class="hero-visual">
+                    <div class="hero-badge-card">
+                        <span class="badge-label">Fast booking</span>
+                        <p>Choose your service, stylist, and time in one flow.</p>
+                    </div>
+                    <img src="{% static 'images/hero/bannersalonist.jpg' %}" alt="A stylist delivering an at-home beauty service" class="hero-img-main">
+                    <div class="hero-mini-panel">
+                        <div class="mini-icon"><i class="fas fa-star"></i></div>
+                        <div>
+                            <strong>At-home convenience</strong>
+                            <p>Beauty care designed around your schedule.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="mb-5">
-    <div class="about-section text-white">
-        <div class="row g-4 align-items-center about-row">
+<section class="trust-strip">
+    <div class="container">
+        <div class="trust-grid">
+            <div class="trust-item">
+                <i class="fas fa-user-check"></i>
+                <div>
+                    <strong>Verified professionals</strong>
+                    <span>Profiles, availability, and clear service selection.</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-house"></i>
+                <div>
+                    <strong>At-home appointments</strong>
+                    <span>Reserve beauty services without the commute.</span>
+                </div>
+            </div>
+            <div class="trust-item">
+                <i class="fas fa-calendar-check"></i>
+                <div>
+                    <strong>Simple booking flow</strong>
+                    <span>Pick a date, time, and location in a few steps.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="editorial-section">
+    <div class="container">
+        <div class="row align-items-center g-5">
             <div class="col-lg-5">
-                <div class="about-image-wrap">
-                    <img src="{% static 'images/stylists/salonist.jpg' %}" alt="SalonConnect beauty professional" class="about-image">
-                    <div class="about-image-badge">
-                        <span>SalonConnect</span>
-                        <strong>Beauty that comes to you</strong>
-                        <p class="mb-0 small text-white-50">Book beauty services with trusted stylists at your preferred location.</p>
-                    </div>
+                <div class="editorial-card">
+                    <span class="section-kicker">Why People Prefer It</span>
+                    <h2 class="section-title">A salon experience that feels personal from the first click.</h2>
+                    <p class="editorial-copy">Users care about speed, trust, and convenience. This homepage now puts those three things first so new visitors understand exactly what they can do and why they should book here.</p>
+                    <a href="{% url 'services' %}" class="text-link-arrow">Explore all services <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-7">
-                <div class="about-body">
-                    <span class="badge bg-light text-dark mb-3">About SalonConnect</span>
-                    <h2 class="about-title fw-bold mt-3">Salon beauty services made easier, safer, and closer to home.</h2>
-                    <p class="hero-lead mt-3 about-text text-white-50">
-                        SalonConnect is a simple booking platform that connects customers with trusted stylists for at-home beauty services.
-                        Whether you need hair styling, makeup, nail care, or skincare, the platform helps you discover professionals,
-                        compare options, and schedule appointments with ease.
-                    </p>
-                    <p class="hero-lead mb-4 about-text text-white-50">
-                        We also give stylists a place to showcase their skills, manage their availability, and reach more customers in a clean
-                        and beginner-friendly digital space. The goal is to make salon services more convenient for clients and more visible for providers.
-                    </p>
-                    <div class="d-flex flex-wrap gap-3 about-badges">
-                        <span class="about-pill">Trusted stylists</span>
-                        <span class="about-pill">At-home booking</span>
-                        <span class="about-pill">Simple scheduling</span>
-                    </div>
+                <div class="benefit-grid">
+                    <article class="benefit-card">
+                        <span class="benefit-number">01</span>
+                        <h3>Clear service discovery</h3>
+                        <p>Popular options are visible immediately, with pricing and direct booking links.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <span class="benefit-number">02</span>
+                        <h3>Relevant stylist choices</h3>
+                        <p>Only available stylists are highlighted, reducing friction before booking.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <span class="benefit-number">03</span>
+                        <h3>Strong first impression</h3>
+                        <p>More premium visuals and a clearer structure make the product feel trustworthy.</p>
+                    </article>
+                    <article class="benefit-card">
+                        <span class="benefit-number">04</span>
+                        <h3>Mobile-friendly layout</h3>
+                        <p>The most important actions stay visible and readable on smaller screens.</p>
+                    </article>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="mb-5">
-    <div class="section-intro text-center mx-auto mb-4">
-        <span class="section-kicker">How It Works</span>
-        <h2 class="section-title mt-3">Book your salon experience in three simple steps.</h2>
-        <p class="text-muted mb-0">SalonConnect is designed to make beauty booking feel easy, quick, and trustworthy for both clients and stylists.</p>
-    </div>
-    <div class="row g-4">
-        <div class="col-md-4">
-            <div class="card process-card h-100 border-0">
-                <div class="card-body p-4">
-                    <div class="process-number">01</div>
-                    <h3 class="h4 mt-3">Choose a Service</h3>
-                    <p class="text-muted mb-0">Browse hair, makeup, nails, skincare, and other beauty services that fit your needs.</p>
-                </div>
+<section class="services-showcase">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">Most Requested</span>
+                <h2 class="section-title mb-0">Services customers book most often</h2>
             </div>
+            <a href="{% url 'services' %}" class="text-link-arrow">See all services <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="col-md-4">
-            <div class="card process-card h-100 border-0">
-                <div class="card-body p-4">
-                    <div class="process-number">02</div>
-                    <h3 class="h4 mt-3">Select a Stylist</h3>
-                    <p class="text-muted mb-0">Find available professionals near you and choose the stylist you want to work with.</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card process-card h-100 border-0">
-                <div class="card-body p-4">
-                    <div class="process-number">03</div>
-                    <h3 class="h4 mt-3">Book at Home</h3>
-                    <p class="text-muted mb-0">Set your preferred date, time, phone number, and location, then wait for your appointment.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="mb-5">
-    <div class="section-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
-        <div>
-            <span class="section-kicker">Popular Services</span>
-            <h2 class="section-title mt-3 mb-2">Salon services customers love booking most.</h2>
-            <p class="text-muted mb-0">Explore in-demand beauty services delivered with comfort, style, and convenience.</p>
-        </div>
-        <a href="{% url 'services' %}" class="btn btn-outline-dark align-self-start align-self-lg-auto">See All</a>
-    </div>
-    <div class="row g-4">
-        {% for service in services %}
-            <div class="col-md-4">
-                <div class="card service-card h-100 shadow-sm border-0">
-                    {% if service.image %}
-                        <img src="{{ service.image.url }}" class="card-img-top service-image" alt="{{ service.name }}">
-                    {% else %}
-                        <img src="{% static service.placeholder_image %}" class="card-img-top service-image" alt="{{ service.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h3 class="h5">{{ service.name }}</h3>
-                        <p class="text-muted">{{ service.description|truncatewords:18 }}</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <p class="fw-semibold mb-0">KES {{ service.price }}</p>
-                            <a href="{% url 'book_service' %}?service={{ service.id }}" class="btn btn-dark btn-sm">Book</a>
-                        </div>
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-lg-4 col-md-6">
+                <article class="card-salon">
+                    <div class="card-salon-img-wrapper">
+                        {% if service.image %}
+                            <img src="{{ service.image.url }}" class="card-salon-img" alt="{{ service.name }}">
+                        {% else %}
+                            <img src="{% static service.placeholder_image %}" class="card-salon-img" alt="{{ service.name }}">
+                        {% endif %}
+                        <div class="card-salon-price">KES {{ service.price }}</div>
                     </div>
-                </div>
+                    <div class="card-salon-body">
+                        <h3 class="card-salon-title">{{ service.name }}</h3>
+                        <p class="text-muted small mb-4">{{ service.description|truncatewords:18 }}</p>
+                        <a href="{% url 'book_service' %}?service={{ service.id }}" class="btn-salon-outline text-center py-2">Book {{ service.name }}</a>
+                    </div>
+                </article>
             </div>
-        {% empty %}
+            {% empty %}
             <div class="col-12">
-                <div class="alert alert-info mb-0">No services have been added yet. Add some from the admin panel.</div>
-            </div>
-        {% endfor %}
-    </div>
-</section>
-
-<section class="mb-5">
-    <div class="section-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
-        <div>
-            <span class="section-kicker">Featured Stylists</span>
-            <h2 class="section-title mt-3 mb-2">Meet available beauty professionals ready to serve you.</h2>
-            <p class="text-muted mb-0">Discover stylists who bring professional beauty care directly to your home.</p>
-        </div>
-        <a href="{% url 'stylists' %}" class="btn btn-outline-dark align-self-start align-self-lg-auto">Browse Stylists</a>
-    </div>
-    <div class="row g-4">
-        {% for stylist in stylists %}
-            <div class="col-md-4">
-                <div class="card stylist-card h-100 border-0 shadow-sm">
-                    {% if stylist.profile_image %}
-                        <img src="{{ stylist.profile_image.url }}" class="card-img-top stylist-image" alt="{{ stylist.full_name }}">
-                    {% else %}
-                        <img src="{% static stylist.placeholder_image %}" class="card-img-top stylist-image" alt="{{ stylist.full_name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-2">
-                            <h3 class="h5 mb-0">{{ stylist.full_name }}</h3>
-                            <span class="badge bg-success">Available</span>
-                        </div>
-                        <p class="mb-1"><strong>Location:</strong> {{ stylist.location }}</p>
-                        <p class="text-muted">{{ stylist.bio|truncatewords:20 }}</p>
-                        <a href="{% url 'book_service' %}?stylist={{ stylist.id }}" class="btn btn-dark">Book</a>
-                    </div>
+                <div class="empty-state-panel">
+                    <h3>No services added yet</h3>
+                    <p>Add services from the admin dashboard to feature them here.</p>
                 </div>
             </div>
-        {% empty %}
-            <div class="col-12">
-                <div class="alert alert-info mb-0">No stylist profiles are available yet.</div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
     </div>
 </section>
 
-<section class="cta-section rounded-4 text-white">
-    <div class="row align-items-center g-4">
-        <div class="col-lg-8">
-            <span class="badge bg-light text-dark mb-3">Ready to get started?</span>
-            <h2 class="cta-title fw-bold">Book your next salon appointment or join SalonConnect as a stylist.</h2>
-            <p class="hero-lead text-white-50 mt-3 mb-0">Customers can schedule beauty care from home, and stylists can grow their visibility with a professional profile.</p>
+<section class="stylists-spotlight">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">Meet The Talent</span>
+                <h2 class="section-title mb-0">Available stylists ready for bookings</h2>
+            </div>
+            <a href="{% url 'stylists' %}" class="text-link-arrow">View all stylists <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="col-lg-4">
-            <div class="d-grid gap-3">
-                <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book a Service</a>
+        <div class="row g-4">
+            {% for stylist in stylists %}
+            <div class="col-lg-4 col-md-6">
+                <article class="stylist-card">
+                    <div class="stylist-card-top">
+                        {% if stylist.profile_image %}
+                            <img src="{{ stylist.profile_image.url }}" alt="{{ stylist.full_name }}" class="stylist-avatar">
+                        {% else %}
+                            <img src="{% static stylist.placeholder_image %}" alt="{{ stylist.full_name }}" class="stylist-avatar">
+                        {% endif %}
+                        <span class="availability-pill">Available</span>
+                    </div>
+                    <div class="stylist-card-body">
+                        <h3>{{ stylist.full_name }}</h3>
+                        <p class="stylist-location"><i class="fas fa-location-dot"></i> {{ stylist.location }}</p>
+                        <p class="text-muted small">{{ stylist.bio|truncatewords:20 }}</p>
+                        <a href="{% url 'book_service' %}?stylist={{ stylist.id }}" class="btn-salon-primary stylist-cta">Book this stylist</a>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="empty-state-panel">
+                    <h3>No available stylists yet</h3>
+                    <p>Stylists will appear here once profiles are created and marked available.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="how-it-works">
+    <div class="container">
+        <div class="section-heading centered-heading">
+            <div>
+                <span class="section-kicker">How It Works</span>
+                <h2 class="section-title mb-0">From browsing to booking in three steps</h2>
+            </div>
+        </div>
+        <div class="steps-grid">
+            <article class="step-card">
+                <span class="step-index">1</span>
+                <h3>Choose a service</h3>
+                <p>Compare beauty treatments and pick what fits your needs and budget.</p>
+            </article>
+            <article class="step-card">
+                <span class="step-index">2</span>
+                <h3>Select a stylist</h3>
+                <p>Review available professionals and book the one you prefer.</p>
+            </article>
+            <article class="step-card">
+                <span class="step-index">3</span>
+                <h3>Set your time and location</h3>
+                <p>Confirm your appointment details and wait for your visit.</p>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="container">
+    <div class="cta-salon">
+        <div class="cta-content px-3">
+            <span class="section-kicker cta-kicker">Ready To Book?</span>
+            <h2>Make your homepage convert visitors into bookings.</h2>
+            <p class="lead mb-4">Users should immediately understand the value: trusted stylists, clear services, and easy at-home booking.</p>
+            <div class="cta-actions">
+                <a href="{% url 'book_service' %}" class="btn btn-light rounded-pill px-5 fw-bold py-2">Book Now</a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'stylist_register' %}" class="btn btn-outline-light btn-lg">Update Stylist Profile</a>
+                    <a href="{% url 'booking_list' %}" class="btn btn-outline-light rounded-pill px-5 fw-bold py-2">View My Bookings</a>
                 {% else %}
-                    <a href="{% url 'register' %}" class="btn btn-outline-light btn-lg">Create Account</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-light rounded-pill px-5 fw-bold py-2">Create Account</a>
                 {% endif %}
             </div>
         </div>
