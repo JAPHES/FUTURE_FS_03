@@ -16,6 +16,7 @@ from .models import Booking, Service, StylistProfile
 
 
 def require_admin(request):
+    # Reuse this guard across the custom admin views.
     if not request.user.is_superuser:
         messages.error(request, "You do not have permission to view the admin area.")
         return redirect("home")
@@ -72,6 +73,7 @@ def register(request):
 
 @login_required
 def stylist_register(request):
+    # A stylist can create a profile once and then edit the same record later.
     existing_profile = StylistProfile.objects.filter(user=request.user).first()
     is_editing = existing_profile is not None
 
@@ -116,6 +118,7 @@ def book_service(request):
     if request.method == "POST":
         form = BookingForm(request.POST)
         if form.is_valid():
+            # Attach the logged-in customer instead of exposing that field in the form.
             booking = form.save(commit=False)
             booking.customer = request.user
             booking.save()
@@ -148,8 +151,10 @@ def admin_dashboard(request):
     if denied:
         return denied
 
+    # Pull related records once so the dashboard tables stay efficient.
     bookings = Booking.objects.select_related("customer", "stylist", "service")
     recent_bookings = bookings.order_by("-created_at")[:5]
+    # Build quick lookup counts for each booking status.
     status_counts = {
         item["status"]: item["total"]
         for item in bookings.values("status").annotate(total=Count("id"))
@@ -198,6 +203,7 @@ def admin_services(request):
     if denied:
         return denied
 
+    # The same form handles both creating and editing services.
     editing_service = None
     service_id = request.GET.get("edit")
     if service_id:

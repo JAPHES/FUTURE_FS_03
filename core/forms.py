@@ -22,6 +22,7 @@ class CustomerRegistrationForm(UserCreationForm):
 
     def clean_username(self):
         username = self.cleaned_data["username"]
+        # Keep the error message clear instead of relying on the default duplicate check.
         if User.objects.filter(username=username).exists():
             raise ValidationError("A user with that username already exists.")
         return username
@@ -62,6 +63,7 @@ class BookingForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Customers should only be able to choose stylists who are available.
         self.fields["stylist"].queryset = StylistProfile.objects.filter(is_available=True)
+        # Apply the shared booking page styling to every generated input.
         for field in self.fields.values():
             existing_classes = field.widget.attrs.get("class", "")
             field.widget.attrs["class"] = (

@@ -16,6 +16,7 @@ class StylistProfile(models.Model):
 
     @property
     def placeholder_image(self):
+        # Fall back to local artwork when no profile photo has been uploaded.
         placeholder_map = {
             "Jane Doe": "images/stylists/stylist-1.svg",
             "Mary Wambui": "images/stylists/stylist-2.svg",
@@ -38,6 +39,7 @@ class Service(models.Model):
 
     @property
     def placeholder_image(self):
+        # Match common service names to bundled fallback artwork.
         placeholder_map = {
             "Haircut": "images/services/haircut.svg",
             "Braiding": "images/services/braiding.svg",
@@ -53,6 +55,7 @@ class Service(models.Model):
 
 
 class Booking(models.Model):
+    # These values drive both customer messaging and admin updates.
     STATUS_PENDING = "Pending"
     STATUS_CONFIRMED = "Confirmed"
     STATUS_COMPLETED = "Completed"
