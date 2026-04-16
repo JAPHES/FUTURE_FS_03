@@ -16,7 +16,7 @@ from .models import Booking, Service, StylistProfile
 
 
 def require_admin(request):
-    if not request.user.is_staff:
+    if not request.user.is_superuser:
         messages.error(request, "You do not have permission to view the admin area.")
         return redirect("home")
     return None
@@ -129,8 +129,8 @@ def book_service(request):
 
 @login_required
 def booking_list(request):
-    # Staff users can review every booking, while customers see only their own.
-    if request.user.is_staff:
+    # Superuser can review every booking, while customers see only their own.
+    if request.user.is_superuser:
         bookings = Booking.objects.select_related(
             "customer", "stylist", "service"
         ).all()
