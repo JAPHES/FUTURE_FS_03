@@ -62,6 +62,11 @@ class BookingForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Customers should only be able to choose stylists who are available.
         self.fields["stylist"].queryset = StylistProfile.objects.filter(is_available=True)
+        for field in self.fields.values():
+            existing_classes = field.widget.attrs.get("class", "")
+            field.widget.attrs["class"] = (
+                f"{existing_classes} booking-input".strip()
+            )
 
 
 class AdminServiceForm(forms.ModelForm):

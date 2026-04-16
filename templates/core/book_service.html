@@ -1,30 +1,104 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-<section class="page-header mb-4">
-    <h1 class="display-6 fw-bold">Book a Service</h1>
-    <p class="text-muted">Select your preferred service, stylist, and appointment time.</p>
+<section class="page-hero booking-hero">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="section-kicker">Book In Minutes</span>
+                <h1 class="hero-title page-hero-title">Make the booking experience feel as polished as the service itself.</h1>
+                <p class="hero-lead">This page now gives users a clearer path to confirm an appointment, with a warmer layout, stronger hierarchy, and less visual friction around the form.</p>
+                <div class="hero-actions">
+                    <a href="{% url 'services' %}" class="btn-salon-outline">Explore Services</a>
+                    <a href="{% url 'stylists' %}" class="btn-salon-outline">Browse Stylists</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-chip">
+                        <strong>1 Form</strong>
+                        <span>Service, stylist, date, and location</span>
+                    </div>
+                    <div class="stat-chip">
+                        <strong>At-home</strong>
+                        <span>Appointments where you need them</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="page-hero-visual">
+                    <div class="hero-badge-card">
+                        <span class="badge-label">Simple flow</span>
+                        <p>Choose the service, confirm the details, and submit in one place.</p>
+                    </div>
+                    <img src="{% static 'images/hero/bannersalonist.jpg' %}" alt="Salon booking experience" class="hero-img-main">
+                    <div class="hero-mini-panel">
+                        <div class="mini-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <strong>Easy scheduling</strong>
+                            <p>Pick your date and time without extra steps.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="card border-0 shadow-sm">
-            <div class="card-body p-4">
-                <form method="post">
+<section class="booking-form-section">
+    <div class="container">
+        <div class="booking-layout">
+            <div class="booking-info-card">
+                <span class="section-kicker">Before You Submit</span>
+                <h2 class="section-title">What this form helps your customer do</h2>
+                <div class="booking-benefit-list">
+                    <div class="booking-benefit-item">
+                        <i class="fas fa-scissors"></i>
+                        <div>
+                            <strong>Choose a service</strong>
+                            <span>Select the exact treatment needed for the appointment.</span>
+                        </div>
+                    </div>
+                    <div class="booking-benefit-item">
+                        <i class="fas fa-user-tie"></i>
+                        <div>
+                            <strong>Select an available stylist</strong>
+                            <span>Only bookable stylists are shown to reduce confusion.</span>
+                        </div>
+                    </div>
+                    <div class="booking-benefit-item">
+                        <i class="fas fa-location-dot"></i>
+                        <div>
+                            <strong>Set time and location</strong>
+                            <span>Capture when and where the service should happen.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="booking-form-card">
+                <div class="booking-form-head">
+                    <span class="auth-eyebrow">Appointment Details</span>
+                    <h2 class="auth-form-title">Book a Service</h2>
+                    <p class="auth-form-copy">Select your preferred service, stylist, date, time, mobile number, and address.</p>
+                </div>
+                <form method="post" class="booking-form-grid">
                     {% csrf_token %}
                     {% for field in form %}
-                        <div class="mb-3">
-                            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                        <div class="booking-field {% if field.name == 'location' %}booking-field-full{% endif %}">
+                            <label class="form-label auth-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
                             {{ field }}
+                            {% if field.help_text %}
+                                <div class="booking-help-text">{{ field.help_text }}</div>
+                            {% endif %}
                             {% if field.errors %}
-                                <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
+                                <div class="text-danger small mt-2">{{ field.errors|join:", " }}</div>
                             {% endif %}
                         </div>
                     {% endfor %}
-                    <button type="submit" class="btn btn-dark">Submit Booking</button>
+                    <button type="submit" class="btn-salon-primary booking-submit">Submit Booking</button>
                 </form>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
