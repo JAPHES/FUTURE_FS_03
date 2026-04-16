@@ -2,40 +2,55 @@
 {% load static %}
 
 {% block content %}
-<div class="row justify-content-center">
-    <div class="col-xl-10">
-        <div class="card border-0 shadow auth-card overflow-hidden">
-            <div class="row g-0">
-                <div class="col-lg-6">
-                    <div class="auth-image-panel">
-                        <img src="{% static 'images/stylists/salonist.jpg' %}" alt="Salon stylist" class="auth-side-image">
-                        <div class="auth-image-overlay">
-                            <h2 class="h3 fw-bold mb-2">Join SalonConnect</h2>
-                            <p class="mb-0">Create your account to book at-home beauty services or start your journey as a stylist.</p>
+<section class="auth-shell">
+    <div class="container">
+        <div class="auth-layout">
+            <div class="auth-visual-panel auth-visual-panel-register">
+                <img src="{% static 'images/stylists/salonist.jpg' %}" alt="Salon stylist" class="auth-side-image">
+                <div class="auth-visual-overlay"></div>
+                <div class="auth-content-wrap">
+                    <span class="section-kicker auth-kicker">Join SalonConnect</span>
+                    <h1 class="auth-display-title">Create an account that makes at-home beauty booking feel easy.</h1>
+                    <p class="auth-display-copy">The signup flow now matches the redesigned site experience and gives new users a clearer reason to continue.</p>
+                    <div class="auth-benefit-list">
+                        <div class="auth-benefit-item">
+                            <i class="fas fa-sparkles"></i>
+                            <span>Discover curated salon services</span>
+                        </div>
+                        <div class="auth-benefit-item">
+                            <i class="fas fa-location-dot"></i>
+                            <span>Find stylists by location</span>
+                        </div>
+                        <div class="auth-benefit-item">
+                            <i class="fas fa-mobile-screen"></i>
+                            <span>Book appointments in a few steps</span>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="card-body p-4 p-lg-5">
-                        <h1 class="h3 mb-3">Create an Account</h1>
-                        <form method="post">
-                            {% csrf_token %}
-                            {% for field in form %}
-                                <div class="mb-3">
-                                    <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                    {{ field }}
-                                    {% if field.errors %}
-                                        <div class="text-danger small mt-1">{{ field.errors|join:", " }}</div>
-                                    {% endif %}
-                                </div>
-                            {% endfor %}
-                            <button type="submit" class="btn btn-dark w-100">Register</button>
-                        </form>
-                        <p class="mt-3 mb-0 text-muted">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
-                    </div>
+            </div>
+
+            <div class="auth-form-panel">
+                <div class="auth-form-card">
+                    <span class="auth-eyebrow">New Account</span>
+                    <h2 class="auth-form-title">Create an Account</h2>
+                    <p class="auth-form-copy">Register once to start booking salon visits at home and manage your profile from one place.</p>
+                    <form method="post" class="auth-form-grid">
+                        {% csrf_token %}
+                        {% for field in form %}
+                            <div class="auth-field">
+                                <label class="form-label auth-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.errors %}
+                                    <div class="text-danger small mt-2">{{ field.errors|join:", " }}</div>
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                        <button type="submit" class="btn-salon-primary auth-submit">Register</button>
+                    </form>
+                    <p class="auth-switch-copy">Already have an account? <a href="{% url 'login' %}">Login here</a>.</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}

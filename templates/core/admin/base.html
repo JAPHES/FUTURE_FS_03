@@ -1,22 +1,44 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row g-4">
-    <div class="col-lg-3 col-xl-2">
-        <div class="card admin-sidebar">
-            <div class="card-body">
-                <p class="dashboard-label mb-3">Admin Panel</p>
-                <div class="d-grid gap-2">
-                    <a href="{% url 'admin_dashboard' %}" class="btn {% if active_admin_tab == 'dashboard' %}btn-dark{% else %}btn-outline-dark{% endif %}">Dashboard</a>
-                    <a href="{% url 'admin_bookings' %}" class="btn {% if active_admin_tab == 'bookings' %}btn-dark{% else %}btn-outline-dark{% endif %}">Bookings</a>
-                    <a href="{% url 'admin_services' %}" class="btn {% if active_admin_tab == 'services' %}btn-dark{% else %}btn-outline-dark{% endif %}">Services</a>
-                    <a href="{% url 'admin_stylists' %}" class="btn {% if active_admin_tab == 'stylists' %}btn-dark{% else %}btn-outline-dark{% endif %}">Stylists</a>
-                </div>
+<section class="admin-shell">
+    <div class="container">
+        <div class="admin-header-panel">
+            <div>
+                <span class="section-kicker">Management Console</span>
+                <h1 class="section-title admin-shell-title mb-2">SalonConnect Admin</h1>
+                <p class="admin-shell-copy mb-0">A cleaner control center for bookings, stylists, and services.</p>
+            </div>
+            <div class="admin-header-actions">
+                <a href="{% url 'admin_dashboard' %}" class="btn-salon-primary">Dashboard</a>
+                <a href="{% url 'home' %}" class="btn-salon-outline">Back to Site</a>
+            </div>
+        </div>
+
+        <div class="admin-layout">
+            <aside class="admin-sidebar-card">
+                <a href="{% url 'admin_dashboard' %}" class="admin-nav-link {% if active_admin_tab == 'dashboard' %}active{% endif %}">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="{% url 'admin_bookings' %}" class="admin-nav-link {% if active_admin_tab == 'bookings' %}active{% endif %}">
+                    <i class="fas fa-calendar-check"></i>
+                    <span>Bookings</span>
+                </a>
+                <a href="{% url 'admin_services' %}" class="admin-nav-link {% if active_admin_tab == 'services' %}active{% endif %}">
+                    <i class="fas fa-scissors"></i>
+                    <span>Services</span>
+                </a>
+                <a href="{% url 'admin_stylists' %}" class="admin-nav-link {% if active_admin_tab == 'stylists' %}active{% endif %}">
+                    <i class="fas fa-user-tie"></i>
+                    <span>Stylists</span>
+                </a>
+            </aside>
+
+            <div class="admin-content">
+                {% block admin_content %}{% endblock %}
             </div>
         </div>
     </div>
-    <div class="col-lg-9 col-xl-10">
-        {% block admin_content %}{% endblock %}
-    </div>
-</div>
+</section>
 {% endblock %}

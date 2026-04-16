@@ -2,79 +2,145 @@
 {% load static %}
 
 {% block content %}
-<section class="hero-section rounded-4 text-white">
-    <div class="row align-items-center g-4 hero-row">
-        <div class="col-lg-8 hero-copy">
-            <span class="badge bg-light text-dark mb-3">Available Stylists</span>
-            <h1 class="hero-title fw-bold">Find beauty professionals near you and book with confidence.</h1>
-            <p class="hero-lead mt-3">Explore stylist profiles, compare locations, and choose the professional who matches your salon needs at home.</p>
-            <div class="d-flex gap-3 mt-4 hero-actions">
-                <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book Now</a>
-                <a href="{% url 'services' %}" class="btn btn-outline-light btn-lg">View Services</a>
+<section class="page-hero page-hero-stylists">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="section-kicker">Trusted Beauty Experts</span>
+                <h1 class="hero-title page-hero-title">Help users find the right stylist without making the page feel crowded.</h1>
+                <p class="hero-lead">This layout keeps the stylist directory warm, clear, and practical. Visitors can search by location, compare profiles, and move directly into booking.</p>
+                <div class="hero-actions">
+                    <a href="{% url 'book_service' %}" class="btn-salon-primary">Book With a Stylist</a>
+                    <a href="{% url 'services' %}" class="btn-salon-outline">Explore Services</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-chip">
+                        <strong>{{ stylists|length }}</strong>
+                        <span>Stylists available now</span>
+                    </div>
+                    <div class="stat-chip">
+                        <strong>{{ location_query|default:"All areas" }}</strong>
+                        <span>Current location filter</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="hero-visual shadow-lg">
-                <img src="{% static 'images/stylists/salonist.jpg' %}" alt="Available stylist" class="hero-visual-image">
-                <div class="hero-visual-badge">
-                    <p class="mb-1 fw-semibold">{{ stylists|length }} stylist{{ stylists|pluralize }} available</p>
-                    <p class="mb-0 small text-white-50">Search by location and choose a stylist ready to come to you.</p>
+            <div class="col-lg-6">
+                <div class="page-hero-visual">
+                    <div class="hero-badge-card">
+                        <span class="badge-label">Search ready</span>
+                        <p>Location filtering helps users narrow the list quickly.</p>
+                    </div>
+                    <img src="{% static 'images/stylists/salonist.jpg' %}" alt="Available beauty stylist" class="hero-img-main">
+                    <div class="hero-mini-panel">
+                        <div class="mini-icon"><i class="fas fa-location-dot"></i></div>
+                        <div>
+                            <strong>Location-aware browsing</strong>
+                            <p>Find stylists working in your preferred area.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="mb-5">
-    <div class="section-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
-        <div>
-            <span class="section-kicker">Search Stylists</span>
-            <h2 class="section-title mt-3 mb-2">Filter professionals by location and explore who is available.</h2>
-            <p class="text-muted mb-0">Use location search to narrow down stylists serving your area.</p>
+<section class="page-summary-strip">
+    <div class="container">
+        <div class="directory-toolbar">
+            <div class="directory-copy">
+                <span class="section-kicker">Search Stylists</span>
+                <h2 class="section-title mb-2">Refine the list and discover who is ready to book</h2>
+                <p class="text-muted mb-0">The search area now feels like part of the page design instead of a loose form block.</p>
+            </div>
+            <form method="get" class="directory-filter-card">
+                <label for="location" class="form-label">Search by location</label>
+                <div class="directory-filter-row">
+                    <input type="text" class="form-control directory-input" id="location" name="location" value="{{ location_query }}" placeholder="e.g. Nairobi or Meru">
+                    <button type="submit" class="btn-salon-primary directory-btn">Search</button>
+                    <a href="{% url 'stylists' %}" class="btn-salon-outline directory-btn">Clear</a>
+                </div>
+            </form>
         </div>
     </div>
+</section>
 
-    <form method="get" class="row g-3 align-items-end mb-4">
-        <div class="col-md-6">
-            <label for="location" class="form-label">Search by location</label>
-            <input type="text" class="form-control" id="location" name="location" value="{{ location_query }}" placeholder="e.g. Nairobi or Meru">
+<section class="stylists-spotlight">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">Available Now</span>
+                <h2 class="section-title mb-0">Professionals users can trust at a glance</h2>
+            </div>
+            <a href="{% url 'book_service' %}" class="text-link-arrow">Open booking form <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="col-md-3">
-            <button type="submit" class="btn btn-dark w-100">Search</button>
-        </div>
-        <div class="col-md-3">
-            <a href="{% url 'stylists' %}" class="btn btn-outline-dark w-100">Clear</a>
-        </div>
-    </form>
 
-    <div class="row g-4">
-        {% for stylist in stylists %}
-            <div class="col-md-6">
-                <div class="card stylist-card h-100 border-0 shadow-sm">
-                    {% if stylist.profile_image %}
-                        <img src="{{ stylist.profile_image.url }}" class="card-img-top stylist-image" alt="{{ stylist.full_name }}">
-                    {% else %}
-                        <img src="{% static stylist.placeholder_image %}" class="card-img-top stylist-image" alt="{{ stylist.full_name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <div class="d-flex justify-content-between align-items-start mb-3">
+        <div class="row g-4">
+            {% for stylist in stylists %}
+            <div class="col-md-6 col-xl-4">
+                <article class="stylist-card stylist-directory-card">
+                    <div class="stylist-card-top">
+                        {% if stylist.profile_image %}
+                            <img src="{{ stylist.profile_image.url }}" alt="{{ stylist.full_name }}" class="stylist-avatar">
+                        {% else %}
+                            <img src="{% static stylist.placeholder_image %}" alt="{{ stylist.full_name }}" class="stylist-avatar">
+                        {% endif %}
+                        <span class="availability-pill">Available</span>
+                    </div>
+                    <div class="stylist-card-body">
+                        <div class="stylist-meta-row">
                             <div>
                                 <h2 class="h4 mb-1">{{ stylist.full_name }}</h2>
-                                <p class="text-muted mb-0">{{ stylist.location }}</p>
+                                <p class="stylist-location"><i class="fas fa-location-dot"></i> {{ stylist.location }}</p>
                             </div>
-                            <span class="badge bg-success">Available</span>
                         </div>
-                        <p><strong>Phone:</strong> {{ stylist.phone }}</p>
-                        <p class="text-muted">{{ stylist.bio }}</p>
-                        <a href="{% url 'book_service' %}?stylist={{ stylist.id }}" class="btn btn-dark">Book</a>
+                        <div class="profile-detail">
+                            <strong>Phone</strong>
+                            <span>{{ stylist.phone }}</span>
+                        </div>
+                        <p class="text-muted small mb-4">{{ stylist.bio|truncatewords:24 }}</p>
+                        <div class="service-card-footer">
+                            <a href="{% url 'book_service' %}?stylist={{ stylist.id }}" class="btn-salon-primary service-card-btn">Book {{ stylist.full_name }}</a>
+                            <a href="{% url 'services' %}" class="text-link-arrow service-card-link">View services <i class="fas fa-arrow-right"></i></a>
+                        </div>
                     </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="empty-state-panel">
+                    <h3>No stylists matched your search</h3>
+                    <p>Try a different location or clear the filter to see everyone available.</p>
                 </div>
             </div>
-        {% empty %}
-            <div class="col-12">
-                <div class="alert alert-warning">No stylists matched your search.</div>
-            </div>
-        {% endfor %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="editorial-section">
+    <div class="container">
+        <div class="benefit-grid">
+            <article class="benefit-card">
+                <span class="benefit-number">01</span>
+                <h3>Fewer decision points</h3>
+                <p>The page makes it easy to compare location, contact details, and availability without feeling dense.</p>
+            </article>
+            <article class="benefit-card">
+                <span class="benefit-number">02</span>
+                <h3>Clear booking path</h3>
+                <p>Each card leads directly into the booking form with the stylist preselected.</p>
+            </article>
+            <article class="benefit-card">
+                <span class="benefit-number">03</span>
+                <h3>Stronger trust cues</h3>
+                <p>Availability indicators and structured profile details make the directory feel more reliable.</p>
+            </article>
+            <article class="benefit-card">
+                <span class="benefit-number">04</span>
+                <h3>Better mobile scanability</h3>
+                <p>The cards, search form, and actions collapse cleanly for smaller screens.</p>
+            </article>
+        </div>
     </div>
 </section>
 {% endblock %}

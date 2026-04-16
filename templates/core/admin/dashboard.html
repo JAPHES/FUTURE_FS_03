@@ -1,88 +1,113 @@
 {% extends 'core/admin/base.html' %}
 
 {% block admin_content %}
-<section class="page-header mb-4">
-    <h1 class="display-6 fw-bold">Admin Dashboard</h1>
-    <p class="text-muted">Monitor bookings, services, stylists, and recent activity from one place.</p>
+<section class="admin-overview-hero">
+    <div class="admin-overview-copy">
+        <span class="section-kicker">Overview</span>
+        <h2 class="section-title mb-2">Monitor demand, activity, and service readiness from one place.</h2>
+        <p class="mb-0 text-muted">The dashboard now reads like an operations center instead of a raw list of cards.</p>
+    </div>
+    <div class="admin-overview-actions">
+        <a href="{% url 'admin_bookings' %}" class="btn-salon-primary">Review Bookings</a>
+        <a href="{% url 'admin_services' %}" class="btn-salon-outline">Manage Services</a>
+    </div>
 </section>
 
-<div class="row g-4 mb-4">
-    <div class="col-md-6 col-xl-3">
-        <div class="card h-100 dashboard-card">
-            <div class="card-body">
-                <p class="dashboard-label">Total Bookings</p>
-                <h2 class="display-6 fw-bold mb-0">{{ total_bookings }}</h2>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-xl-3">
-        <div class="card h-100 dashboard-card">
-            <div class="card-body">
-                <p class="dashboard-label">Services</p>
-                <h2 class="display-6 fw-bold mb-0">{{ total_services }}</h2>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-xl-3">
-        <div class="card h-100 dashboard-card">
-            <div class="card-body">
-                <p class="dashboard-label">Stylists</p>
-                <h2 class="display-6 fw-bold mb-0">{{ total_stylists }}</h2>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-xl-3">
-        <div class="card h-100 dashboard-card">
-            <div class="card-body">
-                <p class="dashboard-label">Available Stylists</p>
-                <h2 class="display-6 fw-bold mb-0">{{ available_stylists }}</h2>
-            </div>
-        </div>
-    </div>
-</div>
+<section class="admin-metrics-grid">
+    <article class="admin-metric-card accent-bookings">
+        <span class="admin-metric-label">Total Bookings</span>
+        <strong>{{ total_bookings }}</strong>
+        <p>All appointments created on the platform.</p>
+    </article>
+    <article class="admin-metric-card accent-services">
+        <span class="admin-metric-label">Services</span>
+        <strong>{{ total_services }}</strong>
+        <p>Beauty offerings visible to customers.</p>
+    </article>
+    <article class="admin-metric-card accent-stylists">
+        <span class="admin-metric-label">Stylists</span>
+        <strong>{{ total_stylists }}</strong>
+        <p>Registered professionals in the directory.</p>
+    </article>
+    <article class="admin-metric-card accent-available">
+        <span class="admin-metric-label">Available Stylists</span>
+        <strong>{{ available_stylists }}</strong>
+        <p>Profiles currently open for booking.</p>
+    </article>
+</section>
 
-<div class="row g-4 mb-4">
-    <div class="col-lg-4">
-        <div class="card h-100 dashboard-panel">
-            <div class="card-body">
-                <h2 class="h4 mb-3">Booking Status</h2>
-                <div class="d-flex justify-content-between py-2 border-bottom">
+<section class="admin-dashboard-grid">
+    <div class="dashboard-panel admin-status-card">
+        <div class="dashboard-panel-body">
+            <div class="panel-heading">
+                <div>
+                    <span class="panel-kicker">Booking Status</span>
+                    <h3>Current workload mix</h3>
+                </div>
+            </div>
+            <div class="status-stack">
+                <div class="status-row">
                     <span>Pending</span>
                     <strong>{{ pending_bookings }}</strong>
                 </div>
-                <div class="d-flex justify-content-between py-2 border-bottom">
+                <div class="status-row">
                     <span>Confirmed</span>
                     <strong>{{ confirmed_bookings }}</strong>
                 </div>
-                <div class="d-flex justify-content-between py-2">
+                <div class="status-row">
                     <span>Completed</span>
                     <strong>{{ completed_bookings }}</strong>
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-8">
-        <div class="card h-100 dashboard-panel">
-            <div class="card-body">
-                <h2 class="h4 mb-3">Admin Activities</h2>
-                <div class="d-flex flex-wrap gap-3">
-                    <a href="{% url 'admin_bookings' %}" class="btn btn-dark">Review Bookings</a>
-                    <a href="{% url 'admin_services' %}" class="btn btn-dark">Manage Services</a>
-                    <a href="{% url 'admin_stylists' %}" class="btn btn-dark">Manage Stylists</a>
+
+    <div class="dashboard-panel admin-actions-card">
+        <div class="dashboard-panel-body">
+            <div class="panel-heading">
+                <div>
+                    <span class="panel-kicker">Action Center</span>
+                    <h3>Move quickly between admin tasks</h3>
                 </div>
+            </div>
+            <div class="admin-action-grid">
+                <a href="{% url 'admin_bookings' %}" class="admin-action-tile">
+                    <i class="fas fa-calendar-check"></i>
+                    <div>
+                        <strong>Bookings</strong>
+                        <span>Update statuses and manage requests.</span>
+                    </div>
+                </a>
+                <a href="{% url 'admin_services' %}" class="admin-action-tile">
+                    <i class="fas fa-scissors"></i>
+                    <div>
+                        <strong>Services</strong>
+                        <span>Create, price, and refine the menu.</span>
+                    </div>
+                </a>
+                <a href="{% url 'admin_stylists' %}" class="admin-action-tile">
+                    <i class="fas fa-user-tie"></i>
+                    <div>
+                        <strong>Stylists</strong>
+                        <span>Review profiles and availability.</span>
+                    </div>
+                </a>
             </div>
         </div>
     </div>
-</div>
+</section>
 
-<div class="card dashboard-panel">
-    <div class="card-body">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h2 class="h4 mb-0">Recent Activity</h2>
-            <a href="{% url 'admin_bookings' %}" class="btn btn-outline-dark">Open Booking Management</a>
+<section class="dashboard-panel admin-activity-panel">
+    <div class="dashboard-panel-body">
+        <div class="panel-heading">
+            <div>
+                <span class="panel-kicker">Recent Activity</span>
+                <h3>Latest bookings requiring attention</h3>
+            </div>
+            <a href="{% url 'admin_bookings' %}" class="text-link-arrow">Open booking management <i class="fas fa-arrow-right"></i></a>
         </div>
-        <div class="table-responsive">
-            <table class="table align-middle mb-0">
+        <div class="table-responsive admin-table-wrap">
+            <table class="table admin-data-table align-middle mb-0">
                 <thead>
                     <tr>
                         <th>Customer</th>
@@ -95,22 +120,22 @@
                 </thead>
                 <tbody>
                     {% for booking in recent_bookings %}
-                        <tr>
-                            <td>{{ booking.customer.username }}</td>
-                            <td>{{ booking.mobile_number }}</td>
-                            <td>{{ booking.stylist.full_name }}</td>
-                            <td>{{ booking.service.name }}</td>
-                            <td>{{ booking.date }}</td>
-                            <td>{{ booking.status }}</td>
-                        </tr>
+                    <tr>
+                        <td>{{ booking.customer.username }}</td>
+                        <td>{{ booking.mobile_number }}</td>
+                        <td>{{ booking.stylist.full_name }}</td>
+                        <td>{{ booking.service.name }}</td>
+                        <td>{{ booking.date }}</td>
+                        <td><span class="admin-status-pill status-{{ booking.status|lower }}">{{ booking.status }}</span></td>
+                    </tr>
                     {% empty %}
-                        <tr>
-                            <td colspan="6" class="text-center py-4">No admin activity yet.</td>
-                        </tr>
+                    <tr>
+                        <td colspan="6" class="text-center py-4">No admin activity yet.</td>
+                    </tr>
                     {% endfor %}
                 </tbody>
             </table>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}
