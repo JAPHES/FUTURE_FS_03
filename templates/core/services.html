@@ -2,63 +2,153 @@
 {% load static %}
 
 {% block content %}
-<section class="hero-section rounded-4 text-white">
-    <div class="row align-items-center g-4 hero-row">
-        <div class="col-lg-8 hero-copy">
-            <span class="badge bg-light text-dark mb-3">Salon Services</span>
-            <h1 class="hero-title fw-bold">Choose beauty services that fit your style, schedule, and comfort.</h1>
-            <p class="hero-lead mt-3">From hair styling and braiding to makeup, nails, and skincare, explore services you can book from trusted professionals.</p>
-            <div class="d-flex gap-3 mt-4 hero-actions">
-                <a href="{% url 'book_service' %}" class="btn btn-warning btn-lg">Book Now</a>
-                <a href="{% url 'stylists' %}" class="btn btn-outline-light btn-lg">View Stylists</a>
+<section class="page-hero page-hero-services">
+    <div class="container">
+        <div class="row align-items-center g-5">
+            <div class="col-lg-6">
+                <span class="section-kicker">Curated Beauty Menu</span>
+                <h1 class="hero-title page-hero-title">Choose services that feel premium before the appointment even starts.</h1>
+                <p class="hero-lead">From everyday grooming to full beauty sessions, every service here is positioned to help users browse quickly, compare options, and book with confidence.</p>
+                <div class="hero-actions">
+                    <a href="{% url 'book_service' %}" class="btn-salon-primary">Book a Service</a>
+                    <a href="{% url 'stylists' %}" class="btn-salon-outline">Meet Stylists</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-chip">
+                        <strong>{{ services|length }}</strong>
+                        <span>Services ready to book</span>
+                    </div>
+                    <div class="stat-chip">
+                        <strong>At-home</strong>
+                        <span>Convenient beauty care</span>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-lg-4">
-            <div class="hero-visual shadow-lg">
-                <img src="{% static 'images/services/nails.jpg' %}" alt="Salon services" class="hero-visual-image">
-                <div class="hero-visual-badge">
-                    <p class="mb-1 fw-semibold">{{ services|length }} service{{ services|pluralize }} available</p>
-                    <p class="mb-0 small text-white-50">Browse categories and choose the one that works best for your next appointment.</p>
+            <div class="col-lg-6">
+                <div class="page-hero-visual">
+                    <div class="hero-badge-card">
+                        <span class="badge-label">Popular picks</span>
+                        <p>Users can jump directly from discovery into booking.</p>
+                    </div>
+                    <img src="{% static 'images/services/nails.jpg' %}" alt="Salon services showcase" class="hero-img-main">
+                    <div class="hero-mini-panel">
+                        <div class="mini-icon"><i class="fas fa-scissors"></i></div>
+                        <div>
+                            <strong>Clear pricing</strong>
+                            <p>Every service card shows cost and booking action.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<section class="mb-5">
-    <div class="section-intro d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4">
-        <div>
-            <span class="section-kicker">Available Services</span>
-            <h2 class="section-title mt-3 mb-2">Find the salon treatment you want and book it with confidence.</h2>
-            <p class="text-muted mb-0">Each service is designed to be simple to browse and easy to schedule from home.</p>
-        </div>
-        <a href="{% url 'book_service' %}" class="btn btn-outline-dark align-self-start align-self-lg-auto">Open Booking Form</a>
-    </div>
-
-    <div class="row g-4">
-        {% for service in services %}
-            <div class="col-md-6 col-lg-4">
-                <div class="card service-card h-100 border-0 shadow-sm">
-                    {% if service.image %}
-                        <img src="{{ service.image.url }}" class="card-img-top service-image" alt="{{ service.name }}">
-                    {% else %}
-                        <img src="{% static service.placeholder_image %}" class="card-img-top service-image" alt="{{ service.name }}">
-                    {% endif %}
-                    <div class="card-body">
-                        <h2 class="h4">{{ service.name }}</h2>
-                        <p class="text-muted">{{ service.description }}</p>
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <p class="fw-semibold mb-0">KES {{ service.price }}</p>
-                            <a href="{% url 'book_service' %}?service={{ service.id }}" class="btn btn-dark btn-sm">Book This Service</a>
-                        </div>
-                    </div>
+<section class="page-summary-strip">
+    <div class="container">
+        <div class="trust-grid">
+            <div class="trust-item">
+                <i class="fas fa-bolt"></i>
+                <div>
+                    <strong>Fast discovery</strong>
+                    <span>Skim services quickly without opening multiple pages.</span>
                 </div>
             </div>
-        {% empty %}
-            <div class="col-12">
-                <div class="alert alert-info">No services are available right now.</div>
+            <div class="trust-item">
+                <i class="fas fa-tags"></i>
+                <div>
+                    <strong>Visible pricing</strong>
+                    <span>Users can compare options before they commit.</span>
+                </div>
             </div>
-        {% endfor %}
+            <div class="trust-item">
+                <i class="fas fa-calendar-plus"></i>
+                <div>
+                    <strong>Direct booking links</strong>
+                    <span>Every card routes straight into the booking form.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="services-showcase">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <span class="section-kicker">Available Services</span>
+                <h2 class="section-title mb-0">Browse treatments users can understand at a glance</h2>
+            </div>
+            <a href="{% url 'book_service' %}" class="text-link-arrow">Open booking form <i class="fas fa-arrow-right"></i></a>
+        </div>
+
+        <div class="row g-4">
+            {% for service in services %}
+            <div class="col-md-6 col-xl-4">
+                <article class="card-salon service-spotlight-card">
+                    <div class="card-salon-img-wrapper">
+                        {% if service.image %}
+                            <img src="{{ service.image.url }}" class="card-salon-img" alt="{{ service.name }}">
+                        {% else %}
+                            <img src="{% static service.placeholder_image %}" class="card-salon-img" alt="{{ service.name }}">
+                        {% endif %}
+                        <div class="card-salon-price">KES {{ service.price }}</div>
+                    </div>
+                    <div class="card-salon-body">
+                        <div class="service-card-topline">
+                            <span class="service-tag">SalonConnect</span>
+                        </div>
+                        <h2 class="card-salon-title">{{ service.name }}</h2>
+                        <p class="text-muted small mb-4">{{ service.description|truncatewords:24 }}</p>
+                        <div class="service-card-footer">
+                            <a href="{% url 'book_service' %}?service={{ service.id }}" class="btn-salon-primary service-card-btn">Book {{ service.name }}</a>
+                            <a href="{% url 'stylists' %}" class="text-link-arrow service-card-link">Find a stylist <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="empty-state-panel">
+                    <h3>No services are available right now</h3>
+                    <p>Add services from the admin area to populate this page.</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<section class="editorial-section">
+    <div class="container">
+        <div class="row g-4 align-items-center">
+            <div class="col-lg-5">
+                <div class="editorial-card">
+                    <span class="section-kicker">Booking Flow</span>
+                    <h2 class="section-title">Users should never wonder what to do next.</h2>
+                    <p class="editorial-copy">This section keeps the page persuasive and practical: discover a service, choose a stylist, then book the time and location that works best.</p>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="steps-grid">
+                    <article class="step-card">
+                        <span class="step-index">1</span>
+                        <h3>Pick a treatment</h3>
+                        <p>Review the service cards and choose the beauty session you want.</p>
+                    </article>
+                    <article class="step-card">
+                        <span class="step-index">2</span>
+                        <h3>Match with a stylist</h3>
+                        <p>Browse available professionals ready to deliver the service.</p>
+                    </article>
+                    <article class="step-card">
+                        <span class="step-index">3</span>
+                        <h3>Confirm your appointment</h3>
+                        <p>Set your date, time, and location in the booking form.</p>
+                    </article>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 {% endblock %}
